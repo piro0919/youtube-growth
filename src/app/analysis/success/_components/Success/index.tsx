@@ -1,5 +1,6 @@
 /* eslint-disable security/detect-object-injection */
 import { type AnalysisComplete } from "@/app/actions";
+import Image from "next/image";
 import Link from "next/link";
 import DownloadPDFButton from "../DownloadPDFButton";
 import styles from "./style.module.css";
@@ -209,9 +210,9 @@ export type SuccessProps = {
 /**
  * サーバーコンポーネント - 分析結果の取得と表示
  */
-export default async function Success({
+export default function Success({
   analysisResult,
-}: SuccessProps): Promise<React.JSX.Element> {
+}: SuccessProps): React.JSX.Element {
   // 分析データを取得
   const { advice, analysis } = analysisResult;
   const { channel } = analysis;
@@ -450,7 +451,8 @@ export default async function Success({
               </ul>
             </div>
           </div>
-          {/* 人気動画セクション - 修正部分（YouTube リンク追加） */}
+          {/* Success.tsx内の人気動画セクションを更新し、サムネイルを表示する */}
+          {/* 人気動画セクション - サムネイル追加 */}
           <div className={styles.videoSection}>
             <h3 className={styles.dataTitle}>人気動画</h3>
             <div className={styles.videoListContainer}>
@@ -458,6 +460,15 @@ export default async function Success({
                 {analysis.top.slice(0, 5).map((video, idx) => (
                   <li className={styles.videoItem} key={idx}>
                     <div className={styles.videoRank}>{idx + 1}</div>
+                    {/* サムネイル表示を追加 */}
+                    <div className={styles.videoThumbnail}>
+                      <Image
+                        alt={`${video.title}のサムネイル`}
+                        className={styles.videoThumbnailImg}
+                        fill={true}
+                        src={`https://i.ytimg.com/vi/${video.id}/mqdefault.jpg`}
+                      />
+                    </div>
                     <div className={styles.videoContent}>
                       <h4 className={styles.videoTitle}>
                         <a
@@ -471,14 +482,23 @@ export default async function Success({
                       </h4>
                       <div className={styles.videoStats}>
                         <span className={styles.videoViews}>
+                          <span className={styles.videoStatsIcon}>👁️</span>
                           {video.views.toLocaleString()} 回視聴
                         </span>
                         <span className={styles.videoDate}>
+                          <span className={styles.videoStatsIcon}>📅</span>
                           {formatDate(video.published)}
                         </span>
                         {video.engagement && (
                           <span className={styles.videoEngagement}>
-                            エンゲージメント率: {video.engagement.toFixed(2)}%
+                            <span className={styles.videoStatsIcon}>❤️</span>
+                            {video.engagement.toFixed(2)}%
+                          </span>
+                        )}
+                        {video.minutes && (
+                          <span className={styles.videoDuration}>
+                            <span className={styles.videoStatsIcon}>⏱️</span>
+                            {Math.round(video.minutes)}分
                           </span>
                         )}
                       </div>
@@ -542,6 +562,1088 @@ export default async function Success({
               </span>
             </p>
           </div>
+          {/* エンゲージメント・成長相関分析セクション - Success関数内の適切な場所に追加 */}
+          {analysis.engagementGrowth && (
+            <div className={styles.section}>
+              <h2 className={styles.sectionTitle}>
+                エンゲージメントと成長の相関分析
+              </h2>
+              <div className={styles.correlationOverview}>
+                <div className={styles.correlationScoreCard}>
+                  <h3 className={styles.correlationTitle}>相関スコア</h3>
+                  <div className={styles.correlationScoreWrapper}>
+                    <div
+                      className={`
+              ${styles.correlationScore}
+              ${
+                Math.abs(analysis.engagementGrowth.correlationScore) > 0.5
+                  ? analysis.engagementGrowth.correlationScore > 0
+                    ? styles.strongPositive
+                    : styles.strongNegative
+                  : styles.weakCorrelation
+              }
+            `}
+                    >
+                      {analysis.engagementGrowth.correlationScore.toFixed(2)}
+                    </div>
+                    <div className={styles.correlationLabel}>
+                      {Math.abs(analysis.engagementGrowth.correlationScore) >
+                      0.7
+                        ? "強い相関"
+                        : Math.abs(analysis.engagementGrowth.correlationScore) >
+                            0.3
+                          ? "中程度の相関"
+                          : "弱い相関"}
+                    </div>
+                  </div>
+                </div>
+                <div className={styles.insightCard}>
+                  <h3 className={styles.insightTitle}>主要な洞察</h3>
+                  <p className={styles.insightText}>
+                    {analysis.engagementGrowth.insight}
+                  </p>
+                </div>
+              </div>
+              <div className={styles.engagementComparisonCard}>
+                <h3 className={styles.comparisonTitle}>エンゲージメント効果</h3>
+                <div className={styles.comparisonGrid}>
+                  <div className={styles.comparisonItem}>
+                    <div className={styles.comparisonLabel}>
+                      高エンゲージメント動画後の成長
+                    </div>
+                    <div
+                      className={`${styles.comparisonValue} ${styles.highValue}`}
+                    >
+                      {analysis.engagementGrowth.engagementComparisonData.highEngagementGrowth.toFixed(
+                        1,
+                      )}
+                      %
+                    </div>
+                  </div>
+                  <div className={styles.comparisonItem}>
+                    <div className={styles.comparisonLabel}>
+                      低エンゲージメント動画後の成長
+                    </div>
+                    <div
+                      className={`${styles.comparisonValue} ${styles.lowValue}`}
+                    >
+                      {analysis.engagementGrowth.engagementComparisonData.lowEngagementGrowth.toFixed(
+                        1,
+                      )}
+                      %
+                    </div>
+                  </div>
+                  <div className={styles.comparisonItem}>
+                    <div className={styles.comparisonLabel}>差分</div>
+                    <div
+                      className={`${styles.comparisonValue} ${analysis.engagementGrowth.engagementComparisonData.differencePercentage > 0 ? styles.positiveEffect : styles.negativeEffect}`}
+                    >
+                      {analysis.engagementGrowth.engagementComparisonData
+                        .differencePercentage > 0
+                        ? "+"
+                        : ""}
+                      {analysis.engagementGrowth.engagementComparisonData.differencePercentage.toFixed(
+                        1,
+                      )}
+                      %
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* トレンド情報 */}
+              <div className={styles.trendGrid}>
+                <div className={styles.trendCard}>
+                  <h3 className={styles.trendTitle}>エンゲージメント傾向</h3>
+                  <div
+                    className={`${styles.trendValue} ${analysis.engagementGrowth.engagementTrend.isImproving ? styles.trendPositive : styles.trendNegative}`}
+                  >
+                    {analysis.engagementGrowth.engagementTrend
+                      .changePercentage > 0
+                      ? "+"
+                      : ""}
+                    {analysis.engagementGrowth.engagementTrend.changePercentage.toFixed(
+                      1,
+                    )}
+                    %
+                  </div>
+                  <p className={styles.trendDescription}>
+                    {analysis.engagementGrowth.engagementTrend.trendDescription}
+                  </p>
+                </div>
+                <div className={styles.trendCard}>
+                  <h3 className={styles.trendTitle}>成長率傾向</h3>
+                  <div
+                    className={`${styles.trendValue} ${analysis.engagementGrowth.growthRateTrend.isImproving ? styles.trendPositive : styles.trendNegative}`}
+                  >
+                    {analysis.engagementGrowth.growthRateTrend
+                      .changePercentage > 0
+                      ? "+"
+                      : ""}
+                    {analysis.engagementGrowth.growthRateTrend.changePercentage.toFixed(
+                      1,
+                    )}
+                    %
+                  </div>
+                  <p className={styles.trendDescription}>
+                    {analysis.engagementGrowth.growthRateTrend.trendDescription}
+                  </p>
+                </div>
+              </div>
+              {/* 高エンゲージメント特徴と推奨事項 */}
+              <div className={styles.engagementFeaturesGrid}>
+                <div className={styles.featuresCard}>
+                  <h3 className={styles.featuresTitle}>
+                    高エンゲージメント動画の特徴
+                  </h3>
+                  {analysis.engagementGrowth.highEngagementFeatures &&
+                  analysis.engagementGrowth.highEngagementFeatures.length >
+                    0 ? (
+                    <ul className={styles.featuresList}>
+                      {analysis.engagementGrowth.highEngagementFeatures.map(
+                        (feature, idx) => (
+                          <li className={styles.featureItem} key={idx}>
+                            <div className={styles.featureBullet}></div>
+                            <div className={styles.featureText}>{feature}</div>
+                          </li>
+                        ),
+                      )}
+                    </ul>
+                  ) : (
+                    <p className={styles.noDataMessage}>
+                      十分なデータがありません
+                    </p>
+                  )}
+                </div>
+                <div className={styles.featuresCard}>
+                  <h3 className={styles.featuresTitle}>
+                    低エンゲージメント動画の特徴
+                  </h3>
+                  {analysis.engagementGrowth.lowEngagementFeatures &&
+                  analysis.engagementGrowth.lowEngagementFeatures.length > 0 ? (
+                    <ul className={styles.featuresList}>
+                      {analysis.engagementGrowth.lowEngagementFeatures.map(
+                        (feature, idx) => (
+                          <li className={styles.featureItem} key={idx}>
+                            <div className={styles.featureBullet}></div>
+                            <div className={styles.featureText}>{feature}</div>
+                          </li>
+                        ),
+                      )}
+                    </ul>
+                  ) : (
+                    <p className={styles.noDataMessage}>
+                      十分なデータがありません
+                    </p>
+                  )}
+                </div>
+              </div>
+              {/* 推奨事項 */}
+              <div className={styles.recommendationsCard}>
+                <h3 className={styles.recommendationsTitle}>
+                  分析に基づく推奨事項
+                </h3>
+                {analysis.engagementGrowth.recommendationsBasedOnCorrelation &&
+                analysis.engagementGrowth.recommendationsBasedOnCorrelation
+                  .length > 0 ? (
+                  <ul className={styles.recommendationsList}>
+                    {analysis.engagementGrowth.recommendationsBasedOnCorrelation.map(
+                      (recommendation, idx) => (
+                        <li className={styles.recommendationItem} key={idx}>
+                          {recommendation}
+                        </li>
+                      ),
+                    )}
+                  </ul>
+                ) : (
+                  <p className={styles.noDataMessage}>推奨事項はありません</p>
+                )}
+              </div>
+            </div>
+          )}
+          {/* 動画長の詳細分析セクション - エンゲージメント分析セクションの直後に追加 */}
+          {analysis.duration.completeDurationAnalysis && (
+            <div className={styles.section}>
+              <h2 className={styles.sectionTitle}>動画長の詳細分析</h2>
+              {/* ジャンル別推奨時間 */}
+              {analysis.duration.genreRecommendation && (
+                <div className={styles.durationRecommendationCard}>
+                  <h3 className={styles.durationCardTitle}>
+                    <span className={styles.durationIcon}>⏱️</span>
+                    最適な動画長（ジャンル分析）
+                  </h3>
+                  <div className={styles.durationRecommendationContent}>
+                    <div className={styles.genreInfo}>
+                      <div className={styles.genreLabel}>メインジャンル:</div>
+                      <div className={styles.genreValue}>
+                        {analysis.duration.genreRecommendation.mainGenreName}
+                      </div>
+                    </div>
+                    <div className={styles.recommendationBoxes}>
+                      <div className={styles.recommendationBox}>
+                        <div className={styles.recommendationBoxLabel}>
+                          チャンネル最適時間
+                        </div>
+                        <div className={styles.recommendationBoxValue}>
+                          {analysis.duration.genreRecommendation.recommendation}
+                        </div>
+                        <div className={styles.recommendationBoxSubtext}>
+                          このチャンネル特有の最適な長さ
+                        </div>
+                      </div>
+                      <div className={styles.recommendationBox}>
+                        <div className={styles.recommendationBoxLabel}>
+                          業界標準時間
+                        </div>
+                        <div className={styles.recommendationBoxValue}>
+                          {
+                            analysis.duration.genreRecommendation
+                              .generalRange[0]
+                          }
+                          〜
+                          {
+                            analysis.duration.genreRecommendation
+                              .generalRange[1]
+                          }
+                          分
+                        </div>
+                        <div className={styles.recommendationBoxSubtext}>
+                          {analysis.duration.genreRecommendation.mainGenreName}
+                          ジャンルの一般的な推奨時間
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {/* 時間帯別分析 */}
+              {analysis.duration.completeDurationAnalysis.buckets && (
+                <div className={styles.durationBucketsContainer}>
+                  <h3 className={styles.durationCardTitle}>
+                    時間帯別のパフォーマンス
+                  </h3>
+                  <div className={styles.durationBucketsGrid}>
+                    {Object.entries(
+                      analysis.duration.completeDurationAnalysis.buckets,
+                    )
+                      .filter(([, bucket]) => bucket.count > 0)
+                      .map(([range, bucket]) => (
+                        <div
+                          className={`
+                ${styles.durationBucketCard}
+                ${
+                  analysis.duration.completeDurationAnalysis!
+                    .optimalForViews === range
+                    ? styles.optimalBucket
+                    : ""
+                }
+              `}
+                          key={range}
+                        >
+                          <div className={styles.bucketHeader}>
+                            <h4 className={styles.bucketTitle}>{range}</h4>
+                            {analysis.duration.completeDurationAnalysis!
+                              .optimalForViews === range && (
+                              <div className={styles.optimalBadge}>最適</div>
+                            )}
+                          </div>
+                          <div className={styles.bucketStats}>
+                            <div className={styles.bucketStat}>
+                              <span className={styles.bucketStatLabel}>
+                                動画数:
+                              </span>
+                              <span className={styles.bucketStatValue}>
+                                {bucket.count}本
+                              </span>
+                            </div>
+                            <div className={styles.bucketStat}>
+                              <span className={styles.bucketStatLabel}>
+                                平均視聴:
+                              </span>
+                              <span className={styles.bucketStatValue}>
+                                {Math.round(bucket.avgViews).toLocaleString()}回
+                              </span>
+                            </div>
+                            <div className={styles.bucketStat}>
+                              <span className={styles.bucketStatLabel}>
+                                エンゲージメント:
+                              </span>
+                              <span className={styles.bucketStatValue}>
+                                {bucket.avgEngagement.toFixed(2)}%
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                  {/* 最適な時間帯の解説 */}
+                  <div className={styles.durationInsightBox}>
+                    <h4 className={styles.insightTitle}>分析結果</h4>
+                    <div className={styles.insightContent}>
+                      {analysis.duration.completeDurationAnalysis
+                        .optimalForViews ? (
+                        <p className={styles.insightText}>
+                          <strong className={styles.highlightText}>
+                            {
+                              analysis.duration.completeDurationAnalysis
+                                .optimalForViews
+                            }
+                          </strong>
+                          の動画が最も高い視聴数を獲得しています
+                          {analysis.duration.completeDurationAnalysis
+                            .optimalForEngagement &&
+                          analysis.duration.completeDurationAnalysis
+                            .optimalForEngagement !==
+                            analysis.duration.completeDurationAnalysis
+                              .optimalForViews ? (
+                            <>
+                              。また、エンゲージメント率が最も高いのは
+                              <strong className={styles.highlightText}>
+                                {
+                                  analysis.duration.completeDurationAnalysis
+                                    .optimalForEngagement
+                                }
+                              </strong>
+                              の動画です
+                            </>
+                          ) : null}
+                          。
+                        </p>
+                      ) : (
+                        <p className={styles.insightText}>
+                          動画長による明確な傾向は見られません。様々な長さで試してみることをお勧めします。
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+              {/* 成長機会の分析 */}
+              {analysis.duration.growthOpportunity && (
+                <div className={styles.growthOpportunityCard}>
+                  <h3 className={styles.durationCardTitle}>
+                    <span className={styles.growthIcon}>📈</span>
+                    成長機会の分析
+                  </h3>
+                  <div className={styles.growthOpportunityContent}>
+                    <div className={styles.growthOpportunityMessage}>
+                      <p className={styles.growthText}>
+                        現在は
+                        <strong>
+                          {analysis.duration.growthOpportunity.currentFocus}
+                        </strong>
+                        の動画が最も多く （
+                        {analysis.duration.growthOpportunity.currentFocusCount}
+                        本）投稿されていますが、
+                        <strong className={styles.recommendedLength}>
+                          {analysis.duration.growthOpportunity.recommendation}
+                        </strong>
+                        の動画の方が高いパフォーマンスを示しています。
+                      </p>
+                    </div>
+                    <div className={styles.growthStatsGrid}>
+                      <div className={styles.growthStat}>
+                        <div className={styles.growthStatLabel}>視聴数の差</div>
+                        <div
+                          className={`${styles.growthStatValue} ${styles.positiveValue}`}
+                        >
+                          +
+                          {analysis.duration.growthOpportunity.reasonViews.toLocaleString()}
+                          回
+                        </div>
+                      </div>
+                      <div className={styles.growthStat}>
+                        <div className={styles.growthStatLabel}>
+                          エンゲージメントの差
+                        </div>
+                        <div
+                          className={`${styles.growthStatValue} ${styles.positiveValue}`}
+                        >
+                          +
+                          {analysis.duration.growthOpportunity.reasonEngagement}
+                          %
+                        </div>
+                      </div>
+                    </div>
+                    <div className={styles.growthRecommendation}>
+                      <p className={styles.recommendationText}>
+                        <strong className={styles.recommendationHighlight}>
+                          推奨:
+                        </strong>
+                        {analysis.duration.growthOpportunity.recommendation}
+                        の動画制作に注力すると視聴数の増加が期待できます。
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {/* 動画長分析セクションの「高パフォーマンスの動画例」にサムネイルを追加 */}
+              {/* 代表的な動画例 - サムネイル付き */}
+              {analysis.duration.best && analysis.duration.best.length > 0 && (
+                <div className={styles.bestDurationVideosCard}>
+                  <h3 className={styles.durationCardTitle}>
+                    高パフォーマンスの動画例
+                  </h3>
+                  <ul className={styles.bestDurationVideosList}>
+                    {analysis.duration.best.slice(0, 3).map((video, idx) => (
+                      <li className={styles.videoItem} key={idx}>
+                        {/* サムネイル表示を追加 */}
+                        <div className={styles.videoThumbnail}>
+                          <Image
+                            alt={`${video.title}のサムネイル`}
+                            className={styles.videoThumbnailImg}
+                            fill={true}
+                            src={`https://i.ytimg.com/vi/${video.id}/mqdefault.jpg`}
+                          />
+                        </div>
+                        <div className={styles.videoContent}>
+                          <div className={styles.videoDurationBadge}>
+                            {Math.round(video.minutes || 0)}分
+                          </div>
+                          <h4 className={styles.videoTitle}>
+                            <a
+                              className={styles.videoLink}
+                              href={`https://www.youtube.com/watch?v=${video.id}`}
+                              rel="noopener noreferrer"
+                              target="_blank"
+                            >
+                              {video.title}
+                            </a>
+                          </h4>
+                          <div className={styles.videoStats}>
+                            <span className={styles.videoViews}>
+                              <span className={styles.videoStatsIcon}>👁️</span>
+                              {video.views.toLocaleString()}回
+                            </span>
+                            {video.engagement && (
+                              <span className={styles.videoEngagement}>
+                                <span className={styles.videoStatsIcon}>
+                                  ❤️
+                                </span>
+                                エンゲージメント率:{" "}
+                                {video.engagement.toFixed(2)}%
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          )}
+          {/* コンテンツカテゴリ分析セクション - 動画長分析セクションの直後に追加 */}
+          {analysis.categories.typePerformance && (
+            <div className={styles.section}>
+              <h2 className={styles.sectionTitle}>コンテンツタイプ分析</h2>
+              {/* コンテンツタイプの概要 */}
+              <div className={styles.contentTypeOverview}>
+                <div className={styles.contentTypeChart}>
+                  <h3 className={styles.contentChartTitle}>コンテンツ配分</h3>
+                  <div className={styles.contentTypeGrid}>
+                    {analysis.categories.typePerformance.map((type, idx) => (
+                      <div
+                        style={{
+                          backgroundColor:
+                            type.name === analysis.categories.topFormat
+                              ? "rgba(66, 153, 225, 0.7)"
+                              : "rgba(160, 174, 192, 0.4)",
+                          width: `${Math.max(5, Math.min(100, type.percentage))}%`,
+                        }}
+                        className={`${styles.contentTypeBar} ${type.name === analysis.categories.topFormat ? styles.primaryContentType : ""}`}
+                        key={idx}
+                      >
+                        <div className={styles.contentTypeLabel}>
+                          {type.nameJapanese}
+                        </div>
+                        <div className={styles.contentTypePercent}>
+                          {Math.round(type.percentage)}%
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className={styles.contentDistributionCard}>
+                  <h3 className={styles.contentDistributionTitle}>
+                    コンテンツ多様性
+                  </h3>
+                  {analysis.categories.contentDistribution && (
+                    <>
+                      <div className={styles.diversityScoreMeter}>
+                        <div className={styles.diversityScoreLabel}>
+                          多様性スコア
+                        </div>
+                        <div className={styles.diversityScoreValue}>
+                          <div
+                            className={`
+                    ${styles.diversityScore}
+                    ${
+                      analysis.categories.contentDistribution
+                        .diversificationScore > 70
+                        ? styles.highDiversity
+                        : analysis.categories.contentDistribution
+                              .diversificationScore > 40
+                          ? styles.balancedDiversity
+                          : styles.lowDiversity
+                    }
+                  `}
+                          >
+                            {
+                              analysis.categories.contentDistribution
+                                .diversificationScore
+                            }
+                          </div>
+                          <div className={styles.diversityMaxLabel}>/100</div>
+                        </div>
+                        <div className={styles.diversityStatusLabel}>
+                          {analysis.categories.contentDistribution.isBalanced
+                            ? "バランス良好"
+                            : analysis.categories.contentDistribution
+                                  .diversificationScore > 70
+                              ? "過度に多様"
+                              : "多様性に欠ける"}
+                        </div>
+                      </div>
+                      <div className={styles.diversityRecommendation}>
+                        <p className={styles.diversityText}>
+                          {
+                            analysis.categories.contentDistribution
+                              .recommendation
+                          }
+                        </p>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+              {/* コンテンツタイプ詳細比較 */}
+              <div className={styles.contentTypeComparisonCard}>
+                <h3 className={styles.comparisonCardTitle}>
+                  コンテンツタイプのパフォーマンス比較
+                </h3>
+                <div className={styles.contentTypeTable}>
+                  <div className={styles.contentTypeTableHeader}>
+                    <div className={styles.typeColumn}>コンテンツタイプ</div>
+                    <div className={styles.statsColumn}>動画数</div>
+                    <div className={styles.statsColumn}>平均視聴数</div>
+                    <div className={styles.statsColumn}>対チャンネル平均</div>
+                    <div className={styles.statsColumn}>エンゲージメント</div>
+                  </div>
+                  <div className={styles.contentTypeTableBody}>
+                    {analysis.categories.typePerformance.map((type, idx) => (
+                      <div
+                        className={`
+                ${styles.contentTypeRow}
+                ${type.name === analysis.categories.topFormat ? styles.primaryTypeRow : ""}
+                ${type.name === analysis.categories.mostEffectiveType?.name ? styles.mostEffectiveRow : ""}
+              `}
+                        key={idx}
+                      >
+                        <div className={styles.typeColumn}>
+                          <div className={styles.typeNameBadge}>
+                            {type.nameJapanese}
+                            {type.name ===
+                              analysis.categories.mostEffectiveType?.name && (
+                              <span className={styles.topPerformerBadge}>
+                                最効果的
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        <div className={styles.statsColumn}>{type.count}本</div>
+                        <div className={styles.statsColumn}>
+                          {Math.round(type.avgViews).toLocaleString()}回
+                        </div>
+                        <div
+                          className={`
+                ${styles.statsColumn}
+                ${type.relativeViewsPerformance > 100 ? styles.positivePerformance : styles.negativePerformance}
+              `}
+                        >
+                          {type.relativeViewsPerformance > 100 ? "+" : ""}
+                          {Math.round(type.relativeViewsPerformance - 100)}%
+                        </div>
+                        <div className={styles.statsColumn}>
+                          {type.avgEngagement.toFixed(2)}%
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              {/* 潜在的なニッチ市場の分析 */}
+              {analysis.categories.nichePotential && (
+                <div className={styles.nichePotentialCard}>
+                  <h3 className={styles.nichePotentialTitle}>
+                    <span className={styles.nicheIcon}>💡</span>
+                    潜在的なニッチ市場
+                  </h3>
+                  <div className={styles.nichePotentialContent}>
+                    <div className={styles.nicheType}>
+                      <span className={styles.nicheTypeLabel}>
+                        ニッチタイプ:
+                      </span>
+                      <span className={styles.nicheTypeValue}>
+                        {analysis.categories.nichePotential.nameJapanese}
+                      </span>
+                    </div>
+                    <div className={styles.nicheGrowthPotential}>
+                      <span className={styles.nicheGrowthLabel}>
+                        成長可能性スコア:
+                      </span>
+                      <span className={styles.nicheGrowthValue}>
+                        {analysis.categories.nichePotential.potentialGrowth} /
+                        10
+                      </span>
+                    </div>
+                    <div className={styles.nicheRecommendation}>
+                      <p className={styles.nicheRecommendationText}>
+                        {analysis.categories.nichePotential.recommendation}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {/* 最も効果的なコンテンツタイプの詳細 */}
+              {analysis.categories.mostEffectiveType && (
+                <div className={styles.bestTypeDetailCard}>
+                  <h3 className={styles.bestTypeTitle}>
+                    <span className={styles.trophyIcon}>🏆</span>
+                    最も効果的なコンテンツタイプ:{" "}
+                    {analysis.categories.mostEffectiveType.nameJapanese}
+                  </h3>
+                  <div className={styles.bestTypeGrid}>
+                    <div className={styles.bestTypeStats}>
+                      <div className={styles.bestTypeStat}>
+                        <div className={styles.bestTypeStatLabel}>
+                          平均視聴数
+                        </div>
+                        <div className={styles.bestTypeStatValue}>
+                          {Math.round(
+                            analysis.categories.mostEffectiveType.avgViews,
+                          ).toLocaleString()}{" "}
+                          回
+                        </div>
+                      </div>
+                      <div className={styles.bestTypeStat}>
+                        <div className={styles.bestTypeStatLabel}>
+                          平均エンゲージメント
+                        </div>
+                        <div className={styles.bestTypeStatValue}>
+                          {analysis.categories.mostEffectiveType.avgEngagement.toFixed(
+                            2,
+                          )}
+                          %
+                        </div>
+                      </div>
+                      <div className={styles.bestTypeStat}>
+                        <div className={styles.bestTypeStatLabel}>
+                          チャンネル平均比
+                        </div>
+                        <div className={styles.bestTypeStatValue}>
+                          {Math.round(
+                            analysis.categories.mostEffectiveType
+                              .relativeViewsPerformance,
+                          )}
+                          %
+                        </div>
+                      </div>
+                    </div>
+                    {/* コンテンツタイプ分析の「最高パフォーマンス動画」にサムネイルを追加 */}
+                    {analysis.categories.mostEffectiveType &&
+                      analysis.categories.mostEffectiveType.topPerformer && (
+                        <div className={styles.bestTypeTopVideo}>
+                          <div className={styles.topVideoHeader}>
+                            最高パフォーマンス動画
+                          </div>
+                          {/* サムネイル表示を追加 */}
+                          <div className={styles.topVideoThumbnail}>
+                            <Image
+                              alt={`${analysis.categories.mostEffectiveType.topPerformer.title}のサムネイル`}
+                              className={styles.topVideoThumbnailImg}
+                              fill={true}
+                              src={`https://i.ytimg.com/vi/${analysis.categories.mostEffectiveType.topPerformer.id}/mqdefault.jpg`}
+                            />
+                          </div>
+                          <a
+                            className={styles.topVideoLink}
+                            href={`https://www.youtube.com/watch?v=${analysis.categories.mostEffectiveType.topPerformer.id}`}
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            {
+                              analysis.categories.mostEffectiveType.topPerformer
+                                .title
+                            }
+                          </a>
+                          <div className={styles.topVideoViews}>
+                            <span className={styles.videoStatsIcon}>👁️</span>
+                            {analysis.categories.mostEffectiveType.topPerformer.views.toLocaleString()}{" "}
+                            回視聴
+                          </div>
+                        </div>
+                      )}
+                  </div>
+                  {/* 成功要因 */}
+                  {analysis.categories.mostEffectiveType.successFactors && (
+                    <div className={styles.successFactorsCard}>
+                      <h4 className={styles.successFactorsTitle}>成功要因</h4>
+                      <div className={styles.successFactorsGrid}>
+                        {analysis.categories.mostEffectiveType.successFactors
+                          .commonPhrases &&
+                          analysis.categories.mostEffectiveType.successFactors
+                            .commonPhrases.length > 0 && (
+                            <div className={styles.successFactorsList}>
+                              <div className={styles.successFactorsLabel}>
+                                よく使われるフレーズ:
+                              </div>
+                              <div className={styles.tagList}>
+                                {analysis.categories.mostEffectiveType.successFactors.commonPhrases
+                                  .slice(0, 5)
+                                  .map((phrase, i) => (
+                                    <span className={styles.tagPill} key={i}>
+                                      {phrase}
+                                    </span>
+                                  ))}
+                              </div>
+                            </div>
+                          )}
+                        {analysis.categories.mostEffectiveType.successFactors
+                          .tagSuggestions &&
+                          analysis.categories.mostEffectiveType.successFactors
+                            .tagSuggestions.length > 0 && (
+                            <div className={styles.successFactorsList}>
+                              <div className={styles.successFactorsLabel}>
+                                効果的なタグ:
+                              </div>
+                              <div className={styles.tagList}>
+                                {analysis.categories.mostEffectiveType.successFactors.tagSuggestions
+                                  .slice(0, 5)
+                                  .map((tag, i) => (
+                                    <span className={styles.tagPill} key={i}>
+                                      {tag}
+                                    </span>
+                                  ))}
+                              </div>
+                            </div>
+                          )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+          {/* タイトルパターン最適化セクション - コンテンツカテゴリ分析セクションの直後に追加 */}
+          {analysis.titles.patterns && (
+            <div className={styles.section}>
+              <h2 className={styles.sectionTitle}>タイトル最適化分析</h2>
+              {/* タイトルパターン分析 */}
+              <div className={styles.titlePatternsCard}>
+                <h3 className={styles.titleCardHeading}>
+                  <span className={styles.titleIcon}>📊</span>
+                  効果的なタイトルパターン
+                </h3>
+                <div className={styles.patternsGrid}>
+                  <div className={styles.patternMetricsCard}>
+                    <h4 className={styles.patternMetricsTitle}>
+                      人気動画のタイトル特徴
+                    </h4>
+                    <div className={styles.patternsList}>
+                      <div className={styles.patternItem}>
+                        <div className={styles.patternLabel}>最適な長さ</div>
+                        <div className={styles.patternValue}>
+                          {analysis.titles.patterns.typicalLength}文字
+                        </div>
+                        <div
+                          style={{
+                            width: `${Math.min(100, analysis.titles.patterns.typicalLength)}%`,
+                          }}
+                          className={styles.patternBar}
+                        ></div>
+                      </div>
+                      <div className={styles.patternItem}>
+                        <div className={styles.patternLabel}>疑問形の使用</div>
+                        <div className={styles.patternValue}>
+                          {analysis.titles.patterns.questionUsage}%
+                        </div>
+                        <div
+                          style={{
+                            width: `${analysis.titles.patterns.questionUsage}%`,
+                          }}
+                          className={styles.patternBar}
+                        ></div>
+                      </div>
+                      <div className={styles.patternItem}>
+                        <div className={styles.patternLabel}>括弧の使用</div>
+                        <div className={styles.patternValue}>
+                          {analysis.titles.patterns.bracketUsage}%
+                        </div>
+                        <div
+                          style={{
+                            width: `${analysis.titles.patterns.bracketUsage}%`,
+                          }}
+                          className={styles.patternBar}
+                        ></div>
+                      </div>
+                      <div className={styles.patternItem}>
+                        <div className={styles.patternLabel}>コロンの使用</div>
+                        <div className={styles.patternValue}>
+                          {analysis.titles.patterns.colonUsage}%
+                        </div>
+                        <div
+                          style={{
+                            width: `${analysis.titles.patterns.colonUsage}%`,
+                          }}
+                          className={styles.patternBar}
+                        ></div>
+                      </div>
+                      <div className={styles.patternItem}>
+                        <div className={styles.patternLabel}>数字で始まる</div>
+                        <div className={styles.patternValue}>
+                          {analysis.titles.patterns.numberInBeginning}%
+                        </div>
+                        <div
+                          style={{
+                            width: `${analysis.titles.patterns.numberInBeginning}%`,
+                          }}
+                          className={styles.patternBar}
+                        ></div>
+                      </div>
+                      <div className={styles.patternItem}>
+                        <div className={styles.patternLabel}>絵文字の使用</div>
+                        <div className={styles.patternValue}>
+                          {analysis.titles.patterns.emojiUsage}%
+                        </div>
+                        <div
+                          style={{
+                            width: `${analysis.titles.patterns.emojiUsage}%`,
+                          }}
+                          className={styles.patternBar}
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.patternInsightsCard}>
+                    <h4 className={styles.patternInsightsTitle}>
+                      このチャンネルに効果的なパターン
+                    </h4>
+                    <div className={styles.patternInsightsList}>
+                      {analysis.titles.patterns.bracketUsage > 40 && (
+                        <div className={styles.patternInsight}>
+                          <div className={styles.insightIcon}>✓</div>
+                          <div className={styles.insightText}>
+                            <strong>括弧の活用:</strong> 人気動画の
+                            {analysis.titles.patterns.bracketUsage}
+                            %が括弧を使用しており、重要なキーワードを強調するのに効果的です。
+                          </div>
+                        </div>
+                      )}
+                      {analysis.titles.patterns.questionUsage > 30 && (
+                        <div className={styles.patternInsight}>
+                          <div className={styles.insightIcon}>✓</div>
+                          <div className={styles.insightText}>
+                            <strong>疑問形の活用:</strong>{" "}
+                            疑問形のタイトルは視聴者の好奇心を刺激し、クリック率を高めています。
+                          </div>
+                        </div>
+                      )}
+                      {analysis.titles.patterns.numberInBeginning > 30 && (
+                        <div className={styles.patternInsight}>
+                          <div className={styles.insightIcon}>✓</div>
+                          <div className={styles.insightText}>
+                            <strong>数字の活用:</strong>{" "}
+                            数字で始まるタイトル（例：「5つの方法」）は具体性を示し、視聴者の注目を集めています。
+                          </div>
+                        </div>
+                      )}
+                      {analysis.titles.patterns.colonUsage > 30 && (
+                        <div className={styles.patternInsight}>
+                          <div className={styles.insightIcon}>✓</div>
+                          <div className={styles.insightText}>
+                            <strong>コロンの活用:</strong>{" "}
+                            コロン（:）を使ったタイトルは主題と詳細を明確に区分し、視認性を高めています。
+                          </div>
+                        </div>
+                      )}
+                      {analysis.titles.patterns.emojiUsage > 20 && (
+                        <div className={styles.patternInsight}>
+                          <div className={styles.insightIcon}>✓</div>
+                          <div className={styles.insightText}>
+                            <strong>絵文字の活用:</strong>{" "}
+                            絵文字は視覚的アクセントとなり、検索結果での目立ちやすさを向上させています。
+                          </div>
+                        </div>
+                      )}
+                      <div className={styles.patternInsight}>
+                        <div className={styles.insightIcon}>✓</div>
+                        <div className={styles.insightText}>
+                          <strong>最適な長さ:</strong> 約
+                          {analysis.titles.patterns.typicalLength}
+                          文字のタイトルが最も効果的です。短すぎず長すぎない長さを目指しましょう。
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* キーワード効果分析 */}
+              <div className={styles.keywordsEffectCard}>
+                <h3 className={styles.titleCardHeading}>
+                  <span className={styles.titleIcon}>🔍</span>
+                  高パフォーマンスキーワード
+                </h3>
+                <div className={styles.keywordsComparison}>
+                  <div className={styles.keywordsSection}>
+                    <h4 className={styles.keywordsSectionTitle}>
+                      高評価タイトルの頻出ワード
+                    </h4>
+                    <div className={styles.keywordsCloud}>
+                      {analysis.titles.highWords
+                        .slice(0, 10)
+                        .map((word, idx) => (
+                          <div
+                            style={{
+                              fontSize: `${Math.max(1, Math.min(2, 1 + word.count / 10))}em`,
+                              opacity: 0.6 + word.count / 20,
+                            }}
+                            className={styles.keywordBubble}
+                            key={idx}
+                          >
+                            {word.word}
+                            <span className={styles.keywordCount}>
+                              +{word.count}
+                            </span>
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                  <div className={styles.keywordsSection}>
+                    <h4 className={styles.keywordsSectionTitle}>
+                      低評価タイトルの頻出ワード
+                    </h4>
+                    <div className={styles.keywordsCloud}>
+                      {analysis.titles.lowWords.slice(0, 8).map((word, idx) => (
+                        <div
+                          style={{
+                            fontSize: `${Math.max(1, Math.min(1.8, 1 + word.count / 12))}em`,
+                            opacity: 0.6 + word.count / 20,
+                          }}
+                          className={styles.keywordBubbleNegative}
+                          key={idx}
+                        >
+                          {word.word}
+                          <span className={styles.keywordCountNegative}>
+                            -{word.count}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className={styles.keywordsTips}>
+                  <div className={styles.keywordTip}>
+                    <div className={styles.tipIcon}>💡</div>
+                    <div className={styles.tipText}>
+                      高評価タイトルのキーワードは人気動画でよく使われている単語です。これらをタイトルに組み込むと視聴数が向上する可能性があります。
+                    </div>
+                  </div>
+                  <div className={styles.keywordTip}>
+                    <div className={styles.tipIcon}>⚠️</div>
+                    <div className={styles.tipText}>
+                      低評価タイトルのキーワードは視聴数の少ない動画に頻出する単語です。これらの使用は控えるか、より効果的な文脈で使用することを検討してください。
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* タイトル提案 */}
+              {analysis.titles.titleSuggestions &&
+                analysis.titles.titleSuggestions.length > 0 && (
+                  <div className={styles.titleSuggestionsCard}>
+                    <h3 className={styles.titleCardHeading}>
+                      <span className={styles.titleIcon}>✍️</span>
+                      タイトル構成の提案
+                    </h3>
+                    <div className={styles.suggestionsList}>
+                      {analysis.titles.titleSuggestions.map(
+                        (suggestion, idx) => (
+                          <div className={styles.suggestionItem} key={idx}>
+                            <div className={styles.suggestionHeader}>
+                              <div className={styles.suggestionPattern}>
+                                {suggestion.pattern}
+                              </div>
+                              <div className={styles.suggestionDescription}>
+                                {suggestion.description}
+                              </div>
+                            </div>
+                            <div className={styles.suggestionExample}>
+                              <div className={styles.exampleLabel}>例:</div>
+                              <div className={styles.exampleText}>
+                                {suggestion.example}
+                              </div>
+                            </div>
+                          </div>
+                        ),
+                      )}
+                    </div>
+                    <div className={styles.titleCompositionTips}>
+                      <div className={styles.compositionTip}>
+                        <h4 className={styles.tipTitle}>
+                          効果的なタイトル構成のポイント
+                        </h4>
+                        <ul className={styles.tipsList}>
+                          <li className={styles.tipItem}>
+                            最も重要なキーワードを先頭か冒頭近くに配置する
+                          </li>
+                          <li className={styles.tipItem}>
+                            具体的な数字を含めると視認性とクリック率が向上する（「いくつか」より「5つの」が効果的）
+                          </li>
+                          <li className={styles.tipItem}>
+                            視聴者にとっての明確なメリットや価値を表現する
+                          </li>
+                          <li className={styles.tipItem}>
+                            センセーショナルすぎる表現は避け、内容に忠実なタイトルを心がける
+                          </li>
+                          <li className={styles.tipItem}>
+                            検索されやすいキーワードと視聴者の感情を刺激する言葉のバランスを取る
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              {/* サムネイル推奨事項 */}
+              {analysis.titles.thumbnailFeatures &&
+                analysis.titles.thumbnailFeatures.recommendations && (
+                  <div className={styles.thumbnailRecommendationsCard}>
+                    <h3 className={styles.titleCardHeading}>
+                      <span className={styles.titleIcon}>🖼️</span>
+                      サムネイル最適化の推奨事項
+                    </h3>
+                    <div className={styles.recommendationsList}>
+                      {analysis.titles.thumbnailFeatures.recommendations.map(
+                        (recommendation, idx) => (
+                          <div className={styles.recommendationItem} key={idx}>
+                            <div className={styles.recommendationIcon}>
+                              {idx === 0
+                                ? "👁️"
+                                : idx === 1
+                                  ? "📝"
+                                  : idx === 2
+                                    ? "🎨"
+                                    : "📊"}
+                            </div>
+                            <div className={styles.recommendationText}>
+                              {recommendation}
+                            </div>
+                          </div>
+                        ),
+                      )}
+                    </div>
+                  </div>
+                )}
+            </div>
+          )}
         </div>
       </div>
       <div className={styles.actions}>

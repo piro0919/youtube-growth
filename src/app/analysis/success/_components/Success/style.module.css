@@ -1,10 +1,4 @@
-.container {
-  container-type: inline-size;
-  margin: 0 auto;
-  max-width: 1000px;
-  padding: 2rem 1rem;
-}
-
+/* stylelint-disable */
 /* 警告バナーのスタイル */
 .warningBanner {
   background-color: rgb(234 88 12 / 0.1);
@@ -82,27 +76,6 @@
   color: #e2e8f0;
   font-size: 1.5rem;
   text-wrap: pretty;
-}
-
-/* セクション共通スタイル */
-.section {
-  background-color: #333;
-  border-radius: 0.5rem;
-  box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
-  color: #e2e8f0;
-  container-type: inline-size;
-  margin-bottom: 3rem;
-  padding: 1.5rem;
-}
-
-.sectionTitle {
-  border-bottom: 2px solid #4a5568;
-  color: #e2e8f0;
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.75rem;
-  text-wrap: balance;
 }
 
 /* チャンネル概要セクション */
@@ -300,41 +273,8 @@
 }
 
 /* 人気動画セクション */
-.videoSection {
-  margin-top: 2rem;
-}
-
-.videoListContainer {
-  background-color: #404040;
-  border-radius: 0.375rem;
-  padding: 1rem;
-}
-
-.videoList {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.videoItem {
-  align-items: flex-start;
-  border-bottom: 1px solid #4a5568;
-  display: flex;
-  flex-wrap: wrap;
-  padding: 1rem;
-}
-
 .videoItem:last-child {
   border-bottom: none;
-}
-
-.videoRank {
-  color: #60a5fa;
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-right: 0.5rem;
-  min-width: 2.5rem;
-  text-align: center;
 }
 
 .videoContent {
@@ -514,69 +454,2097 @@
   margin-bottom: 1rem;
 }
 
-/* PDFダウンロード用のダークモード調整 */
-/* @media print {
-  body {
-    background: white;
-    color: black;
+/* エンゲージメントと成長の相関分析セクション用のスタイル　*/
+/* 相関分析オーバービュー */
+.correlationOverview {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  margin-bottom: 2rem;
+}
+
+.correlationScoreCard {
+  background-color: #404040;
+  border-radius: 0.375rem;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.correlationTitle {
+  color: #f7fafc;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-wrap: balance;
+}
+
+.correlationScoreWrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.correlationScore {
+  align-items: center;
+  border-radius: 50%;
+  display: flex;
+  font-size: 2.2rem;
+  font-weight: 700;
+  height: 80px;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+  width: 80px;
+}
+
+.strongPositive {
+  background-color: rgb(56 161 105 / 0.2);
+  border: 2px solid #38a169;
+  color: #4ade80;
+}
+
+.strongNegative {
+  background-color: rgb(229 62 62 / 0.2);
+  border: 2px solid #e53e3e;
+  color: #f56565;
+}
+
+.weakCorrelation {
+  background-color: rgb(160 174 192 / 0.2);
+  border: 2px solid #a0aec0;
+  color: #cbd5e0;
+}
+
+.correlationLabel {
+  color: #a0aec0;
+  font-size: 1.4rem;
+}
+
+.insightCard {
+  background-color: #404040;
+  border-radius: 0.375rem;
+  padding: 1.5rem;
+}
+
+.insightTitle {
+  color: #f7fafc;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-wrap: balance;
+}
+
+.insightText {
+  color: #e2e8f0;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+/* エンゲージメント比較カード */
+.engagementComparisonCard {
+  background-color: #404040;
+  border-radius: 0.375rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+}
+
+.comparisonTitle {
+  color: #f7fafc;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-wrap: balance;
+}
+
+.comparisonGrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.comparisonItem {
+  background-color: #333;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.comparisonLabel {
+  color: #a0aec0;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  text-wrap: balance;
+}
+
+.comparisonValue {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.highValue {
+  color: #4ade80;
+}
+
+.lowValue {
+  color: #a0aec0;
+}
+
+.positiveEffect {
+  color: #4ade80;
+}
+
+.negativeEffect {
+  color: #f56565;
+}
+
+/* トレンドグリッド */
+.trendGrid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  margin-bottom: 2rem;
+}
+
+.trendCard {
+  background-color: #404040;
+  border-radius: 0.375rem;
+  padding: 1.5rem;
+}
+
+.trendTitle {
+  color: #f7fafc;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-wrap: balance;
+}
+
+.trendValue {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.trendDescription {
+  color: #e2e8f0;
+  font-size: 1.4rem;
+  text-wrap: pretty;
+}
+
+/* 特徴グリッド */
+.engagementFeaturesGrid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  margin-bottom: 2rem;
+}
+
+.featuresCard {
+  background-color: #404040;
+  border-radius: 0.375rem;
+  padding: 1.5rem;
+}
+
+.featuresTitle {
+  color: #f7fafc;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-wrap: balance;
+}
+
+.featuresList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.featureItem {
+  align-items: flex-start;
+  display: flex;
+  margin-bottom: 0.75rem;
+}
+
+.featureBullet {
+  background-color: #4299e1;
+  border-radius: 50%;
+  flex-shrink: 0;
+  height: 8px;
+  margin-right: 10px;
+  margin-top: 8px;
+  width: 8px;
+}
+
+.featureText {
+  color: #e2e8f0;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.noDataMessage {
+  color: #a0aec0;
+  font-size: 1.4rem;
+  font-style: italic;
+  text-wrap: pretty;
+}
+
+/* 推奨事項カード */
+.recommendationsCard {
+  background-color: #404040;
+  border-radius: 0.375rem;
+  padding: 1.5rem;
+}
+
+.recommendationsTitle {
+  color: #f7fafc;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-wrap: balance;
+}
+
+.recommendationsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.recommendationItem {
+  background-color: rgb(66 153 225 / 0.1);
+  border-left: 3px solid #4299e1;
+  border-radius: 0.25rem;
+  color: #e2e8f0;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  text-wrap: pretty;
+}
+
+/* レスポンシブ対応 */
+@container (max-width: 600px) {
+  .comparisonGrid,
+  .trendGrid,
+  .engagementFeaturesGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 動画長の詳細分析セクション用のスタイル - style.module.css に追加 */
+
+/* 動画長の詳細分析 - 共通スタイル */
+.durationCardTitle {
+  align-items: center;
+  color: #f7fafc;
+  display: flex;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-wrap: balance;
+}
+
+.durationIcon,
+.growthIcon {
+  display: inline-block;
+  font-size: 2rem;
+  margin-right: 0.75rem;
+}
+
+/* ジャンル別推奨時間カード */
+.durationRecommendationCard {
+  background-color: #404040;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+}
+
+.durationRecommendationContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.genreInfo {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.genreLabel {
+  color: #a0aec0;
+  font-size: 1.5rem;
+}
+
+.genreValue {
+  background-color: rgb(66 153 225 / 0.15);
+  border-radius: 0.25rem;
+  color: #63b3ed;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+}
+
+.recommendationBoxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.recommendationBox {
+  background-color: #333;
+  border: 1px solid #4a5568;
+  border-radius: 0.5rem;
+  flex: 1;
+  min-width: 250px;
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.recommendationBoxLabel {
+  color: #a0aec0;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.recommendationBoxValue {
+  color: #48bb78;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.recommendationBoxSubtext {
+  color: #e2e8f0;
+  font-size: 1.3rem;
+  opacity: 0.8;
+  text-wrap: pretty;
+}
+
+/* 時間帯別分析 */
+.durationBucketsContainer {
+  background-color: #404040;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+}
+
+.durationBucketsGrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  margin-bottom: 1.5rem;
+}
+
+.durationBucketCard {
+  background-color: #333;
+  border: 1px solid #4a5568;
+  border-radius: 0.375rem;
+  padding: 1rem;
+}
+
+.optimalBucket {
+  border-color: #38a169;
+  box-shadow: 0 0 0 1px #38a169;
+}
+
+.bucketHeader {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.bucketTitle {
+  color: #f7fafc;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.optimalBadge {
+  background-color: #38a169;
+  border-radius: 0.25rem;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+}
+
+.bucketStats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.bucketStat {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bucketStatLabel {
+  color: #a0aec0;
+  font-size: 1.3rem;
+}
+
+.bucketStatValue {
+  color: #e2e8f0;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+/* 洞察ボックス */
+.durationInsightBox {
+  background-color: #333;
+  border-left: 4px solid #4299e1;
+  border-radius: 0.375rem;
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+}
+
+.insightTitle {
+  color: #4299e1;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-wrap: balance;
+}
+
+.insightText {
+  color: #e2e8f0;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.highlightText {
+  color: #48bb78;
+}
+
+/* 成長機会カード */
+.growthOpportunityCard {
+  background-color: #404040;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+}
+
+.growthOpportunityContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.growthOpportunityMessage {
+  background-color: rgb(66 153 225 / 0.1);
+  border-left: 3px solid #4299e1;
+  border-radius: 0.375rem;
+  padding: 1.25rem;
+}
+
+.growthText {
+  color: #e2e8f0;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.recommendedLength {
+  color: #48bb78;
+}
+
+.growthStatsGrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.growthStat {
+  background-color: #333;
+  border: 1px solid #4a5568;
+  border-radius: 0.375rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.growthStatLabel {
+  color: #a0aec0;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.growthStatValue {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.positiveValue {
+  color: #48bb78;
+}
+
+.growthRecommendation {
+  background-color: rgb(56 161 105 / 0.1);
+  border-left: 3px solid #38a169;
+  border-radius: 0.375rem;
+  padding: 1.25rem;
+}
+
+.recommendationText {
+  color: #e2e8f0;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.recommendationHighlight {
+  color: #48bb78;
+}
+
+/* 代表的な動画例 */
+.bestDurationVideosCard {
+  background-color: #404040;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+}
+
+.bestDurationVideosList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bestDurationVideoItem {
+  align-items: center;
+  border-bottom: 1px solid #4a5568;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.bestDurationVideoItem:last-child {
+  border-bottom: none;
+}
+
+.videoDuration {
+  background-color: rgb(66 153 225 / 0.2);
+  border-radius: 0.25rem;
+  color: #63b3ed;
+  flex-shrink: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  min-width: 3.5rem;
+  padding: 0.3rem 0.6rem;
+  text-align: center;
+}
+
+.bestVideoLink {
+  color: #e2e8f0;
+  flex: 1;
+  font-size: 1.4rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.bestVideoLink:hover {
+  color: #4299e1;
+  text-decoration: underline;
+}
+
+.bestVideoViews {
+  color: #a0aec0;
+  font-size: 1.3rem;
+}
+
+/* レスポンシブ調整 */
+@container (max-width: 700px) {
+  .recommendationBoxes,
+  .growthStatsGrid {
+    grid-template-columns: 1fr;
   }
 
-  .section,
-  .adviceParagraph,
-  .dataColumn,
-  .keywordColumn,
-  .videoListContainer,
-  .durationSection,
-  .metaItem {
-    background-color: white;
-    color: #2d3748;
-    print-color-adjust: exact;
+  .durationBucketsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  }
+}
+
+/* コンテンツカテゴリ分析セクション用のスタイル - style.module.css に追加 */
+
+/* コンテンツタイプ概要 */
+.contentTypeOverview {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  margin-bottom: 2rem;
+}
+
+.contentTypeChart {
+  background-color: #404040;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  padding: 1.5rem;
+}
+
+.contentChartTitle {
+  color: #f7fafc;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-wrap: balance;
+}
+
+.contentTypeGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contentTypeBar {
+  align-items: center;
+  background-color: rgb(160 174 192 / 0.4);
+  border-radius: 0.25rem;
+  display: flex;
+  height: 3.2rem;
+  justify-content: space-between;
+  min-width: 5%;
+  overflow: hidden;
+  padding: 0 1rem;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.primaryContentType {
+  background-color: rgb(66 153 225 / 0.7);
+}
+
+.contentTypeLabel {
+  color: #f7fafc;
+  font-size: 1.4rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.contentTypePercent {
+  background-color: rgb(0 0 0 / 0.3);
+  border-radius: 10px;
+  color: #f7fafc;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+}
+
+/* コンテンツ多様性カード */
+.contentDistributionCard {
+  background-color: #404040;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.contentDistributionTitle {
+  color: #f7fafc;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-wrap: balance;
+}
+
+.diversityScoreMeter {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
+.diversityScoreLabel {
+  color: #a0aec0;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.diversityScoreValue {
+  align-items: flex-end;
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.diversityScore {
+  align-items: center;
+  border-radius: 50%;
+  color: #f7fafc;
+  display: flex;
+  font-size: 2.2rem;
+  font-weight: 700;
+  height: 70px;
+  justify-content: center;
+  width: 70px;
+}
+
+.highDiversity {
+  background-color: rgb(247 103 7 / 0.2);
+  border: 2px solid #ed8936;
+  color: #f6ad55;
+}
+
+.balancedDiversity {
+  background-color: rgb(56 161 105 / 0.2);
+  border: 2px solid #38a169;
+  color: #68d391;
+}
+
+.lowDiversity {
+  background-color: rgb(66 153 225 / 0.2);
+  border: 2px solid #4299e1;
+  color: #63b3ed;
+}
+
+.diversityMaxLabel {
+  color: #a0aec0;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.diversityStatusLabel {
+  color: #e2e8f0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.diversityRecommendation {
+  background-color: rgb(66 153 225 / 0.1);
+  border-left: 3px solid #4299e1;
+  border-radius: 0.25rem;
+  padding: 1rem;
+}
+
+.diversityText {
+  color: #e2e8f0;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* コンテンツタイプ詳細比較 */
+.contentTypeComparisonCard {
+  background-color: #404040;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  padding: 1.5rem;
+}
+
+.comparisonCardTitle {
+  color: #f7fafc;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-wrap: balance;
+}
+
+.contentTypeTable {
+  overflow-x: auto;
+}
+
+.contentTypeTableHeader {
+  background-color: rgb(66 153 225 / 0.1);
+  border-bottom: 1px solid #4a5568;
+  border-top: 1px solid #4a5568;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  padding: 0.75rem 1rem;
+}
+
+.typeColumn,
+.statsColumn {
+  color: #a0aec0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  padding: 0.5rem;
+}
+
+.contentTypeTableBody {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.contentTypeRow {
+  border-bottom: 1px solid #4a5568;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  padding: 0.75rem 1rem;
+}
+
+.contentTypeRow:last-child {
+  border-bottom: none;
+}
+
+.primaryTypeRow {
+  background-color: rgb(66 153 225 / 0.08);
+}
+
+.mostEffectiveRow {
+  background-color: rgb(56 161 105 / 0.08);
+}
+
+.typeNameBadge {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.topPerformerBadge {
+  background-color: #38a169;
+  border-radius: 0.25rem;
+  color: white;
+  font-size: 1.2rem;
+  padding: 0.2rem 0.5rem;
+}
+
+.positivePerformance {
+  color: #68d391;
+}
+
+.negativePerformance {
+  color: #fc8181;
+}
+
+/* 潜在的なニッチ市場の分析 */
+.nichePotentialCard {
+  background-color: #404040;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+}
+
+.nichePotentialTitle {
+  align-items: center;
+  color: #f7fafc;
+  display: flex;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-wrap: balance;
+}
+
+.nicheIcon {
+  font-size: 2rem;
+  margin-right: 0.75rem;
+}
+
+.nichePotentialContent {
+  background-color: rgb(74 222 128 / 0.1);
+  border: 1px solid rgb(74 222 128 / 0.3);
+  border-radius: 0.375rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.nicheType,
+.nicheGrowthPotential {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-start;
+}
+
+.nicheTypeLabel,
+.nicheGrowthLabel {
+  color: #a0aec0;
+  font-size: 1.4rem;
+}
+
+.nicheTypeValue {
+  background-color: rgb(66 153 225 / 0.2);
+  border-radius: 0.25rem;
+  color: #63b3ed;
+  font-size: 1.4rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+}
+
+.nicheGrowthValue {
+  color: #4ade80;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.nicheRecommendation {
+  margin-top: 0.5rem;
+}
+
+.nicheRecommendationText {
+  color: #e2e8f0;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* 最も効果的なコンテンツタイプの詳細 */
+.bestTypeDetailCard {
+  background-color: #404040;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+}
+
+.bestTypeTitle {
+  align-items: center;
+  color: #f7fafc;
+  display: flex;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-wrap: balance;
+}
+
+.trophyIcon {
+  font-size: 2rem;
+  margin-right: 0.75rem;
+}
+
+.bestTypeGrid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  margin-bottom: 1.5rem;
+}
+
+.bestTypeStats {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+
+.bestTypeStat {
+  background-color: #333;
+  border-radius: 0.375rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.bestTypeStatLabel {
+  color: #a0aec0;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  text-wrap: balance;
+}
+
+.bestTypeStatValue {
+  color: #f7fafc;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-wrap: pretty;
+}
+
+.bestTypeTopVideo {
+  background-color: #333;
+  border-radius: 0.375rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+}
+
+.topVideoHeader {
+  color: #a0aec0;
+  font-size: 1.3rem;
+  margin-bottom: 0.25rem;
+}
+
+.topVideoLink {
+  color: #63b3ed;
+  font-size: 1.4rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.topVideoLink:hover {
+  color: #4299e1;
+  text-decoration: underline;
+}
+
+.topVideoViews {
+  color: #e2e8f0;
+  font-size: 1.3rem;
+}
+
+/* 成功要因 */
+.successFactorsCard {
+  background-color: #333;
+  border-radius: 0.375rem;
+  padding: 1.25rem;
+}
+
+.successFactorsTitle {
+  color: #f7fafc;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-wrap: balance;
+}
+
+.successFactorsGrid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.successFactorsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.successFactorsLabel {
+  color: #a0aec0;
+  font-size: 1.3rem;
+}
+
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tagPill {
+  background-color: rgb(66 153 225 / 0.2);
+  border-radius: 1rem;
+  color: #63b3ed;
+  display: inline-block;
+  font-size: 1.3rem;
+  padding: 0.3rem 0.8rem;
+}
+
+/* レスポンシブ対応 */
+@container (max-width: 700px) {
+  .bestTypeStats {
+    grid-template-columns: 1fr;
   }
 
-  .dataItem,
-  .keywordItem,
+  .contentTypeTableHeader,
+  .contentTypeRow {
+    grid-template-columns: 1.5fr 0.8fr 1fr 1fr 1fr;
+  }
+}
+
+/* タイトルパターン最適化セクション用のスタイル - style.module.css に追加 */
+
+/* タイトル最適化セクション共通スタイル */
+.titleCardHeading {
+  align-items: center;
+  color: #f7fafc;
+  display: flex;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-wrap: balance;
+}
+
+.titleIcon {
+  display: inline-block;
+  font-size: 2rem;
+  margin-right: 0.75rem;
+}
+
+/* タイトルパターン分析カード */
+.titlePatternsCard {
+  background-color: #404040;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+}
+
+.patternsGrid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.patternMetricsCard {
+  background-color: #333;
+  border-radius: 0.375rem;
+  padding: 1.25rem;
+}
+
+.patternMetricsTitle {
+  color: #f7fafc;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  text-wrap: balance;
+}
+
+.patternsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.patternItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.patternLabel {
+  color: #a0aec0;
+  font-size: 1.4rem;
+}
+
+.patternValue {
+  color: #f7fafc;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.patternBar {
+  background-color: rgb(66 153 225 / 0.6);
+  border-radius: 2px;
+  height: 8px;
+  min-width: 5%;
+}
+
+.patternInsightsCard {
+  background-color: #333;
+  border-radius: 0.375rem;
+  padding: 1.25rem;
+}
+
+.patternInsightsTitle {
+  color: #f7fafc;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  text-wrap: balance;
+}
+
+.patternInsightsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.patternInsight {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.insightIcon {
+  background-color: rgb(56 161 105 / 0.2);
+  border-radius: 50%;
+  color: #48bb78;
+  flex-shrink: 0;
+  font-size: 1.4rem;
+  font-weight: bold;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  width: 24px;
+}
+
+.insightText {
+  color: #e2e8f0;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+/* キーワード効果分析カード */
+.keywordsEffectCard {
+  background-color: #404040;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+}
+
+.keywordsComparison {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  margin-bottom: 1.5rem;
+}
+
+.keywordsSection {
+  background-color: #333;
+  border-radius: 0.375rem;
+  padding: 1.25rem;
+}
+
+.keywordsSectionTitle {
+  color: #f7fafc;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-wrap: balance;
+}
+
+.keywordsCloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+.keywordBubble {
+  align-items: center;
+  background-color: rgb(66 153 225 / 0.2);
+  border-radius: 1rem;
+  color: #63b3ed;
+  display: inline-flex;
+  font-weight: 600;
+  gap: 0.3rem;
+  padding: 0.4rem 0.8rem;
+  position: relative;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.keywordBubble:hover {
+  box-shadow: 0 0 0 2px rgb(66 153 225 / 0.5);
+  transform: translateY(-2px);
+}
+
+.keywordCount {
+  color: #48bb78;
+  font-size: 0.8em;
+  font-weight: 700;
+}
+
+.keywordBubbleNegative {
+  align-items: center;
+  background-color: rgb(160 174 192 / 0.2);
+  border-radius: 1rem;
+  color: #a0aec0;
+  display: inline-flex;
+  font-weight: 600;
+  gap: 0.3rem;
+  padding: 0.4rem 0.8rem;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.keywordCountNegative {
+  color: #fc8181;
+  font-size: 0.8em;
+  font-weight: 700;
+}
+
+.keywordsTips {
+  background-color: rgb(66 153 225 / 0.1);
+  border-radius: 0.375rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.keywordTip {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.tipIcon {
+  flex-shrink: 0;
+  font-size: 1.8rem;
+}
+
+.tipText {
+  color: #e2e8f0;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+/* タイトル提案カード */
+.titleSuggestionsCard {
+  background-color: #404040;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+}
+
+.suggestionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.suggestionItem {
+  background-color: #333;
+  border-left: 4px solid #4299e1;
+  border-radius: 0.375rem;
+  padding: 1.25rem;
+}
+
+.suggestionHeader {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.suggestionPattern {
+  background-color: rgb(66 153 225 / 0.2);
+  border-radius: 0.25rem;
+  color: #63b3ed;
+  font-size: 1.4rem;
+  font-weight: 600;
+  padding: 0.3rem 0.6rem;
+}
+
+.suggestionDescription {
+  color: #e2e8f0;
+  font-size: 1.4rem;
+  font-style: italic;
+}
+
+.suggestionExample {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.exampleLabel {
+  color: #a0aec0;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.exampleText {
+  color: #f7fafc;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.titleCompositionTips {
+  background-color: rgb(56 161 105 / 0.1);
+  border-radius: 0.375rem;
+  padding: 1.25rem;
+}
+
+.compositionTip {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tipTitle {
+  color: #48bb78;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.tipsList {
+  list-style-type: disc;
+  margin: 0 0 0 1.5rem;
+  padding: 0;
+}
+
+.tipItem {
+  color: #e2e8f0;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+  text-wrap: pretty;
+}
+
+/* サムネイル推奨事項カード */
+.thumbnailRecommendationsCard {
+  background-color: #404040;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+}
+
+.recommendationsList {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.recommendationItem {
+  background-color: #333;
+  border-radius: 0.375rem;
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.recommendationIcon {
+  flex-shrink: 0;
+  font-size: 1.8rem;
+}
+
+.recommendationText {
+  color: #e2e8f0;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+/* レスポンシブ対応 */
+@container (max-width: 700px) {
+  .recommendationsList {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* CSS改善 - style.module.css に追加または更新 */
+
+/* 基本的なコンテナスタイル強化 */
+.container {
+  container-type: inline-size;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 2rem 1rem;
+}
+
+/* セクションコンテナのアップグレード */
+.section {
+  background-color: #333;
+  border-radius: 0.75rem;
+  box-shadow:
+    0 4px 12px rgb(0 0 0 / 0.15),
+    0 1px 3px rgb(0 0 0 / 0.3);
+  color: #e2e8f0;
+  container-type: inline-size;
+  margin-bottom: 3.5rem;
+  padding: 2rem;
+  position: relative;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.section:hover {
+  box-shadow:
+    0 6px 16px rgb(0 0 0 / 0.2),
+    0 2px 4px rgb(0 0 0 / 0.4);
+}
+
+.sectionTitle {
+  border-bottom: 2px solid #4a5568;
+  color: #f7fafc;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  position: relative;
+  text-wrap: balance;
+}
+
+.sectionTitle::after {
+  background: linear-gradient(90deg, #4299e1 0%, transparent 100%);
+  bottom: -2px;
+  content: "";
+  height: 2px;
+  left: 0;
+  position: absolute;
+  width: 120px;
+}
+
+/* 人気動画セクションの強化 */
+.videoSection {
+  margin-top: 2.5rem;
+}
+
+.videoListContainer {
+  background-color: #404040;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+}
+
+.videoList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* 改善された動画アイテムスタイル - サムネイル付き */
+.videoItem {
+  align-items: flex-start;
+  background-color: rgb(50 50 50 / 0.6);
+  border-radius: 0.5rem;
+  display: flex;
+  gap: 1rem;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.videoItem:hover {
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.2);
+  transform: translateY(-2px);
+}
+
+.videoRank {
+  align-items: center;
+  background-color: rgb(66 153 225 / 0.8);
+  color: white;
+  display: flex;
+  font-size: 1.4rem;
+  font-weight: 700;
+  height: 28px;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 28px;
+  z-index: 1;
+}
+
+.videoThumbnail {
+  aspect-ratio: 16 / 9;
+  background-color: #2d3748;
+  flex-shrink: 0;
+  height: auto;
+  overflow: hidden;
+  position: relative;
+  width: 180px;
+}
+
+.videoThumbnailImg {
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  width: 100%;
+}
+
+.videoItem:hover .videoThumbnailImg {
+  transform: scale(1.05);
+}
+
+.videoContent {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+  padding: 1rem 1.25rem 1rem 0.5rem;
+}
+
+.videoTitle {
+  color: #f7fafc;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+  text-wrap: balance;
+}
+
+.videoLink {
+  color: inherit;
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.videoLink:hover {
+  color: #63b3ed;
+}
+
+.videoLink::after {
+  color: #63b3ed;
+  content: "↗";
+  display: inline-block;
+  font-size: 0.8em;
+  margin-left: 0.3em;
+  opacity: 0;
+  transform: translateX(-5px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.videoLink:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.videoStats {
+  color: #a0aec0;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 1.3rem;
+  gap: 1rem;
+}
+
+.videoViews,
+.videoDate,
+.videoEngagement,
+.videoDuration {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.4rem;
+  text-wrap: pretty;
+}
+
+.videoStatsIcon {
+  color: #63b3ed;
+  font-size: 1.4rem;
+}
+
+/* キーワード分析セクションの強化 */
+.keywordSection {
+  margin-top: 2.5rem;
+}
+
+.keywordGrid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.keywordColumn {
+  background-color: #404040;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  transition: transform 0.2s ease;
+}
+
+.keywordColumn:hover {
+  transform: translateY(-4px);
+}
+
+.keywordTitle {
+  border-bottom: 1px solid #4a5568;
+  color: #f7fafc;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  text-wrap: balance;
+}
+
+.keywordList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.keywordItem {
+  align-items: center;
+  background-color: rgb(42 42 42 / 0.6);
+  border-radius: 0.25rem;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.keywordItem:hover {
+  background-color: rgb(66 153 225 / 0.15);
+}
+
+.keywordItem:last-child {
+  margin-bottom: 0;
+}
+
+.keywordLabel {
+  color: #f7fafc;
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-wrap: pretty;
+}
+
+.keywordCount {
+  background-color: rgb(66 153 225 / 0.2);
+  border-radius: 4px;
+  color: #63b3ed;
+  font-size: 1.3rem;
+  font-weight: 600;
+  padding: 0.3rem 0.6rem;
+  text-wrap: pretty;
+}
+
+/* 動画長分析の強化 */
+.durationSection {
+  background-color: #404040;
+  border-radius: 0.75rem;
+  margin-top: 2.5rem;
+  padding: 1.5rem;
+}
+
+.durationSummary {
+  align-items: center;
+  background-color: rgb(42 42 42 / 0.6);
+  border-radius: 0.5rem;
+  color: #e2e8f0;
+  display: flex;
+  font-size: 1.5rem;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding: 1rem 1.5rem;
+  text-wrap: pretty;
+}
+
+.emphasis {
+  background-color: rgb(56 161 105 / 0.2);
+  border-radius: 4px;
+  color: #68d391;
+  font-weight: 700;
+  padding: 0.3rem 0.6rem;
+}
+
+/* アクションボタンの強化 */
+.actions {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 3rem;
+}
+
+.actionButton {
+  background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgb(0 0 0 / 0.1);
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.9rem 2rem;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.actionButton:hover {
+  background: linear-gradient(135deg, #3182ce 0%, #2c5282 100%);
+  box-shadow: 0 6px 8px rgb(0 0 0 / 0.15);
+  transform: translateY(-2px);
+}
+
+.actionButton:active {
+  transform: translateY(0);
+}
+
+/* アイコン - 共通ユーティリティ */
+.iconWrapper {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  margin-right: 0.5rem;
+}
+
+.icon {
+  height: 1.2em;
+  width: 1.2em;
+}
+
+/* レスポンシブ対応 - コンテナクエリの活用（メディアクエリ回避） */
+@container (width < 800px) {
+  .videoThumbnail {
+    width: 140px;
+  }
+}
+
+@container (width < 500px) {
   .videoItem {
-    border-bottom-color: #e2e8f0;
+    flex-direction: column;
   }
 
-  .adviceTitle,
-  .adviceSubtitle,
-  .videoTitle,
-  .dataTitle,
-  .keywordTitle,
-  .sectionTitle,
-  .keywordLabel,
-  .dataValue {
-    color: #2d3748;
+  .videoThumbnail {
+    width: 100%;
   }
 
-  .dataLabel,
-  .videoStats,
-  .keywordCount,
-  .metaLabel {
-    color: #4a5568;
+  .videoContent {
+    padding: 1rem;
+    width: 100%;
+  }
+}
+
+/* コンテンツタイプ分析の最高パフォーマンス動画用スタイル - style.module.css に追加 */
+.bestTypeTopVideo {
+  background-color: #333;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow: hidden;
+  padding: 0;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.bestTypeTopVideo:hover {
+  box-shadow: 0 4px 10px rgb(0 0 0 / 0.2);
+  transform: translateY(-2px);
+}
+
+.topVideoHeader {
+  background-color: rgb(66 153 225 / 0.1);
+  color: #63b3ed;
+  font-size: 1.3rem;
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+}
+
+.topVideoThumbnail {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.topVideoThumbnailImg {
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  width: 100%;
+}
+
+.bestTypeTopVideo:hover .topVideoThumbnailImg {
+  transform: scale(1.05);
+}
+
+.topVideoLink {
+  color: #f7fafc;
+  font-size: 1.4rem;
+  font-weight: 600;
+  padding: 0 1rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.topVideoLink:hover {
+  color: #4299e1;
+  text-decoration: underline;
+}
+
+.topVideoViews {
+  align-items: center;
+  color: #a0aec0;
+  display: flex;
+  font-size: 1.3rem;
+  gap: 0.4rem;
+  padding: 0 1rem 1rem;
+}
+
+/* 動画長バッジ用スタイル - 動画長分析セクションで使用 */
+.videoDurationBadge {
+  background-color: rgb(74 222 128 / 0.2);
+  border-radius: 4px;
+  color: #68d391;
+  display: inline-block;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  padding: 0.3rem 0.6rem;
+}
+
+/* 動画長分析セクションの代表的な動画リスト */
+.bestDurationVideosList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* アニメーションとハイライト効果 - style.module.css に追加 */
+
+/* セクション見出しのアニメーション */
+.sectionTitle {
+  overflow: hidden;
+  position: relative;
+}
+
+.sectionTitle::before {
+  animation: shimmer 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(255 255 255 / 0.05),
+    transparent
+  );
+  content: "";
+  height: 100%;
+  left: -150%;
+  position: absolute;
+  top: 0;
+  transform: skewX(-20deg);
+  width: 150%;
+  z-index: 1;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -150%;
   }
 
-  .statValue,
-  .metaValue {
-    color: #2d3748;
+  100% {
+    left: 150%;
+  }
+}
+
+/* 成長率と相関スコアのグロー効果 */
+.strongPositive,
+.trendPositive,
+.positiveEffect,
+.positiveValue,
+.highValue {
+  position: relative;
+}
+
+.strongPositive::after,
+.trendPositive::after,
+.positiveEffect::after,
+.positiveValue::after,
+.highValue::after {
+  animation: pulse 3s ease-in-out infinite;
+  background: radial-gradient(
+    circle,
+    rgb(56 161 105 / 0.3) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  content: "";
+  height: 100%;
+  left: 0;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  transform: scale(1.5);
+  width: 100%;
+  z-index: -1;
+}
+
+.strongNegative,
+.trendNegative,
+.negativeEffect {
+  position: relative;
+}
+
+.strongNegative::after,
+.trendNegative::after,
+.negativeEffect::after {
+  animation: pulse 3s ease-in-out infinite;
+  background: radial-gradient(circle, rgb(229 62 62 / 0.3) 0%, transparent 70%);
+  border-radius: 50%;
+  content: "";
+  height: 100%;
+  left: 0;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  transform: scale(1.5);
+  width: 100%;
+  z-index: -1;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.4;
+    transform: scale(1);
   }
 
-  .adviceListItem {
-    color: #2d3748;
+  50% {
+    opacity: 0.6;
+    transform: scale(1.5);
   }
 
-  .durationSummary {
-    color: #4a5568;
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+}
+
+/* バッジとアクセントのホバーエフェクト */
+.optimalBadge,
+.topPerformerBadge,
+.recommendationBoxValue,
+.diversityScore,
+.keywordBubble {
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.optimalBadge:hover,
+.topPerformerBadge:hover,
+.recommendationBoxValue:hover,
+.diversityScore:hover,
+.keywordBubble:hover {
+  transform: scale(1.05);
+}
+
+/* パターンバーのアニメーション */
+.patternBar {
+  animation: growFromLeft 1.2s ease-out forwards;
+  transform-origin: left;
+  width: 0 !important;
+}
+
+@keyframes growFromLeft {
+  0% {
+    opacity: 0.3;
+    width: 0% !important;
   }
 
-  .emphasis {
-    color: #2d3748;
+  100% {
+    opacity: 1;
+    width: var(--width, 100%) !important;
   }
+}
 
-  .warningBanner,
-  .footerWarning,
-  .actions {
-    display: none;
-  }
-} */
+/* データカードのホバーエフェクト */
+.dataColumn,
+.keywordColumn,
+.correlationScoreCard,
+.insightCard,
+.featuresCard,
+.trendCard,
+.durationBucketCard,
+.recommendationBox,
+.contentTypeComparisonCard,
+.nichePotentialCard {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.dataColumn:hover,
+.keywordColumn:hover,
+.correlationScoreCard:hover,
+.insightCard:hover,
+.featuresCard:hover,
+.trendCard:hover,
+.recommendationBox:hover,
+.contentTypeComparisonCard:hover,
+.nichePotentialCard:hover {
+  box-shadow: 0 6px 12px rgb(0 0 0 / 0.1);
+  transform: translateY(-5px);
+}

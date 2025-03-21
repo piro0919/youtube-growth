@@ -15,7 +15,6 @@
     "react-hook-form": "7.54.2",
     "ress": "5.0.2",
     "stripe": "17.7.0",
-    "tippy.js": "6.3.7",
     "zod": "3.24.2"
   },
   "devDependencies": {
