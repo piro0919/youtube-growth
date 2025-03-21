@@ -878,42 +878,40 @@ export default function Success({
                   {/* 最適な時間帯の解説 */}
                   <div className={styles.durationInsightBox}>
                     <h4 className={styles.insightTitle}>分析結果</h4>
-                    <div className={styles.insightContent}>
-                      {analysis.duration.completeDurationAnalysis
-                        .optimalForViews ? (
-                        <p className={styles.insightText}>
-                          <strong className={styles.highlightText}>
-                            {
-                              analysis.duration.completeDurationAnalysis
-                                .optimalForViews
-                            }
-                          </strong>
-                          の動画が最も高い視聴数を獲得しています
-                          {analysis.duration.completeDurationAnalysis
-                            .optimalForEngagement &&
-                          analysis.duration.completeDurationAnalysis
-                            .optimalForEngagement !==
+                    {analysis.duration.completeDurationAnalysis
+                      .optimalForViews ? (
+                      <p className={styles.insightText}>
+                        <strong className={styles.highlightText}>
+                          {
                             analysis.duration.completeDurationAnalysis
-                              .optimalForViews ? (
-                            <>
-                              。また、エンゲージメント率が最も高いのは
-                              <strong className={styles.highlightText}>
-                                {
-                                  analysis.duration.completeDurationAnalysis
-                                    .optimalForEngagement
-                                }
-                              </strong>
-                              の動画です
-                            </>
-                          ) : null}
-                          。
-                        </p>
-                      ) : (
-                        <p className={styles.insightText}>
-                          動画長による明確な傾向は見られません。様々な長さで試してみることをお勧めします。
-                        </p>
-                      )}
-                    </div>
+                              .optimalForViews
+                          }
+                        </strong>
+                        の動画が最も高い視聴数を獲得しています
+                        {analysis.duration.completeDurationAnalysis
+                          .optimalForEngagement &&
+                        analysis.duration.completeDurationAnalysis
+                          .optimalForEngagement !==
+                          analysis.duration.completeDurationAnalysis
+                            .optimalForViews ? (
+                          <>
+                            。また、エンゲージメント率が最も高いのは
+                            <strong className={styles.highlightText}>
+                              {
+                                analysis.duration.completeDurationAnalysis
+                                  .optimalForEngagement
+                              }
+                            </strong>
+                            の動画です
+                          </>
+                        ) : null}
+                        。
+                      </p>
+                    ) : (
+                      <p className={styles.insightText}>
+                        動画長による明確な傾向は見られません。様々な長さで試してみることをお勧めします。
+                      </p>
+                    )}
                   </div>
                 </div>
               )}
@@ -997,7 +995,9 @@ export default function Success({
                         </div>
                         <div className={styles.videoContent}>
                           <div className={styles.videoDurationBadge}>
-                            {Math.round(video.minutes || 0)}分
+                            <div className={styles.videoDurationBadgeLabel}>
+                              {Math.round(video.minutes || 0)}分
+                            </div>
                           </div>
                           <h4 className={styles.videoTitle}>
                             <a

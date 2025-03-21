@@ -71,6 +71,8 @@ const eslintConfig = [
       "@typescript-eslint/no-unused-vars": "error",
       "@typescript-eslint/promise-function-async": "error",
       "@typescript-eslint/strict-boolean-expressions": "off",
+      "css-modules/no-unused-class": [2, { camelCase: true }],
+      "css-modules/no-undef-class": [2, { camelCase: true }],
       "ext/lines-between-object-properties": ["error", "never"],
       "filenames/match-exported": ["error", ["camel", "kebab", "pascal"]],
       "filenames/match-regex": "error",

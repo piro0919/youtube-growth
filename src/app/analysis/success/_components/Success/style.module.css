@@ -1,12 +1,39 @@
-/* stylelint-disable */
-/* 警告バナーのスタイル */
+/* ==================== */
+/* Base Container Styles */
+/* ==================== */
+.container {
+  container-type: inline-size;
+  margin: 0 auto;
+  max-width: 1200px;
+  overflow: hidden;
+  padding: 2rem 1rem;
+}
+
+/* ==================== */
+/* Warning Elements */
+/* ==================== */
+
+/* Warning Banner and Footer */
+.warningBanner,
+.footerWarning {
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
 .warningBanner {
   background-color: rgb(234 88 12 / 0.1);
   border: 1px solid #f97316;
-  border-radius: 0.5rem;
-  margin-bottom: 2rem;
   padding: 1rem 1.5rem;
-  text-align: center;
+}
+
+.footerWarning {
+  background-color: rgb(234 88 12 / 0.05);
+  border-top: 1px solid rgb(234 88 12 / 0.3);
+  color: #f97316;
+  font-size: 1.3rem;
+  margin-top: 3rem;
+  padding: 1rem;
 }
 
 .warningText {
@@ -27,20 +54,9 @@
   width: 2rem;
 }
 
-/* フッターの警告文 */
-.footerWarning {
-  background-color: rgb(234 88 12 / 0.05);
-  border-radius: 0.5rem;
-  border-top: 1px solid rgb(234 88 12 / 0.3);
-  color: #f97316;
-  font-size: 1.3rem;
-  margin-top: 3rem;
-  padding: 1rem;
-  text-align: center;
-  text-wrap: pretty;
-}
-
-/* 成功通知セクション */
+/* ==================== */
+/* Success Notification */
+/* ==================== */
 .successNotification {
   background-color: rgb(56 161 105 / 0.1);
   border: 1px solid #38a169;
@@ -61,6 +77,12 @@
   text-wrap: balance;
 }
 
+.subtitle {
+  color: #e2e8f0;
+  font-size: 1.5rem;
+  text-wrap: pretty;
+}
+
 .icon {
   background-repeat: no-repeat;
   background-size: cover;
@@ -72,13 +94,75 @@
   width: 3.5rem;
 }
 
-.subtitle {
+/* ==================== */
+/* Section Container */
+/* ==================== */
+.section {
+  background-color: #333;
+  border-radius: 0.75rem;
+  box-shadow:
+    0 4px 12px rgb(0 0 0 / 0.15),
+    0 1px 3px rgb(0 0 0 / 0.3);
   color: #e2e8f0;
-  font-size: 1.5rem;
-  text-wrap: pretty;
+  container-type: inline-size;
+  margin-bottom: 3.5rem;
+  padding: 2rem;
+  position: relative;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
-/* チャンネル概要セクション */
+.section:active,
+.section:hover {
+  box-shadow:
+    0 6px 16px rgb(0 0 0 / 0.2),
+    0 2px 4px rgb(0 0 0 / 0.4);
+}
+
+.sectionTitle {
+  border-bottom: 2px solid #4a5568;
+  color: #f7fafc;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  padding-bottom: 1rem;
+  position: relative;
+  text-wrap: balance;
+}
+
+.sectionTitle::after {
+  background: linear-gradient(90deg, #4299e1 0%, transparent 100%);
+  bottom: -2px;
+  content: "";
+  height: 2px;
+  left: 0;
+  position: absolute;
+  width: 120px;
+}
+
+.sectionTitle::before {
+  animation: shimmer 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(255 255 255 / 0.05),
+    transparent
+  );
+  content: "";
+  height: 100%;
+  left: -150%;
+  position: absolute;
+  top: 0;
+  transform: skewX(-20deg);
+  width: 150%;
+  z-index: 1;
+}
+
+/* ==================== */
+/* Channel Overview Stats */
+/* ==================== */
 .statsGrid {
   display: grid;
   gap: 1rem;
@@ -150,19 +234,71 @@
   text-wrap: pretty;
 }
 
-.trendPositive {
+/* Trend indicators */
+.trendPositive,
+.strongPositive,
+.positiveEffect,
+.positiveValue,
+.highValue {
   color: #4ade80;
+  position: relative;
 }
 
-.trendNegative {
+.trendNegative,
+.strongNegative,
+.negativeEffect {
   color: #f87171;
+  position: relative;
 }
 
 .trendNeutral {
   color: #a0aec0;
 }
 
-/* 専門家のアドバイスセクション */
+/* Glow effects for trend indicators */
+.strongPositive::after,
+.trendPositive::after,
+.positiveEffect::after,
+.positiveValue::after,
+.highValue::after {
+  animation: pulse 3s ease-in-out infinite;
+  background: radial-gradient(
+    circle,
+    rgb(56 161 105 / 0.3) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  content: "";
+  height: 100%;
+  left: 0;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  transform: scale(1.5);
+  width: 100%;
+  z-index: -1;
+}
+
+.strongNegative::after,
+.trendNegative::after,
+.negativeEffect::after {
+  animation: pulse 3s ease-in-out infinite;
+  background: radial-gradient(circle, rgb(229 62 62 / 0.3) 0%, transparent 70%);
+  border-radius: 50%;
+  content: "";
+  height: 100%;
+  left: 0;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  transform: scale(1.5);
+  width: 100%;
+  z-index: -1;
+}
+
+/* ==================== */
+/* Expert Advice Section */
+/* ==================== */
 .adviceBlock {
   margin-bottom: 2rem;
 }
@@ -177,6 +313,35 @@
   text-wrap: balance;
 }
 
+.adviceContent {
+  margin-bottom: 1.5rem;
+}
+
+.contentWrapper {
+  margin-bottom: 1rem;
+}
+
+.adviceParagraph {
+  background-color: #404040;
+  border-left: 3px solid #60a5fa;
+  border-radius: 4px;
+  color: #e2e8f0;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  text-wrap: pretty;
+}
+
+.emptyParagraph {
+  margin: 0;
+}
+
+.multiParagraph {
+  margin-bottom: 1rem;
+}
+
+/* Subsections */
 .adviceSubsections {
   margin-left: 1rem;
 }
@@ -193,31 +358,29 @@
   text-wrap: balance;
 }
 
-.adviceParagraph {
-  background-color: #404040;
-  border-left: 3px solid #60a5fa;
-  border-radius: 4px;
+.subsectionContent {
+  margin-bottom: 1rem;
+}
+
+/* List styling */
+.adviceList {
+  list-style-type: disc;
+  margin-bottom: 1rem;
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.adviceListItem {
   color: #e2e8f0;
   font-size: 1.5rem;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-  padding: 1rem;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
   text-wrap: pretty;
 }
 
-.contentWrapper {
-  margin-bottom: 1rem;
-}
-
-.emptyParagraph {
-  margin: 0;
-}
-
-.multiParagraph {
-  margin-bottom: 1rem;
-}
-
-/* 詳細データセクション */
+/* ==================== */
+/* Analysis Data Section */
+/* ==================== */
 .dataGrid {
   display: grid;
   gap: 2rem;
@@ -229,6 +392,15 @@
   background-color: #404040;
   border-radius: 0.375rem;
   padding: 1.5rem;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.dataColumn:active,
+.dataColumn:hover {
+  box-shadow: 0 6px 12px rgb(0 0 0 / 0.1);
+  transform: translateY(-5px);
 }
 
 .dataTitle {
@@ -272,44 +444,167 @@
   text-wrap: pretty;
 }
 
-/* 人気動画セクション */
+/* ==================== */
+/* Popular Videos Section */
+/* ==================== */
+.videoSection {
+  margin-top: 2.5rem;
+}
+
+.videoListContainer {
+  background-color: #404040;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+}
+
+.videoList,
+.bestDurationVideosList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.videoItem {
+  align-items: flex-start;
+  background-color: rgb(50 50 50 / 0.6);
+  border-radius: 0.5rem;
+  display: flex;
+  gap: 1rem;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.videoItem:active,
+.videoItem:hover {
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.2);
+  transform: translateY(-2px);
+}
+
 .videoItem:last-child {
   border-bottom: none;
 }
 
+.videoRank {
+  align-items: center;
+  background-color: rgb(66 153 225 / 0.8);
+  color: white;
+  display: flex;
+  font-size: 1.4rem;
+  font-weight: 700;
+  height: 28px;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 28px;
+  z-index: 1;
+}
+
+/* Video thumbnails */
+.videoThumbnail,
+.topVideoThumbnail {
+  aspect-ratio: 16 / 9;
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.videoThumbnail {
+  background-color: #2d3748;
+  height: auto;
+  width: 180px;
+}
+
+.videoThumbnailImg,
+.topVideoThumbnailImg {
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  width: 100%;
+}
+
+.videoItem:active .videoThumbnailImg,
+.videoItem:hover .videoThumbnailImg,
+.bestTypeTopVideo:active .topVideoThumbnailImg,
+.bestTypeTopVideo:hover .topVideoThumbnailImg {
+  transform: scale(1.05);
+}
+
+/* Video content */
 .videoContent {
+  display: flex;
   flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
   min-width: 0;
+  padding: 1rem 1.25rem 1rem 0.5rem;
 }
 
 .videoTitle {
   color: #f7fafc;
   font-size: 1.5rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
-  text-wrap: balance;
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+  text-wrap: wrap;
 }
 
-.videoLink {
+.videoLink,
+.topVideoLink {
   color: inherit;
   display: inline-block;
+  position: relative;
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
-.videoLink:hover {
+.videoLink {
+  color: inherit;
+}
+
+.topVideoLink {
+  color: #f7fafc;
+  font-size: 1.4rem;
+  font-weight: 600;
+  padding: 0 1rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.videoLink:active,
+.videoLink:hover,
+.topVideoLink:active,
+.topVideoLink:hover {
   color: #60a5fa;
-  text-decoration: underline;
 }
 
 .videoLink::after {
+  color: #63b3ed;
   content: "↗";
   display: inline-block;
   font-size: 0.8em;
   margin-left: 0.3em;
-  opacity: 0.7;
+  opacity: 0;
+  transform: translateX(-5px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
+.videoLink:active::after,
+.videoLink:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Video stats */
 .videoStats {
   color: #a0aec0;
   display: flex;
@@ -320,13 +615,37 @@
 
 .videoViews,
 .videoDate,
-.videoEngagement {
+.videoEngagement,
+.videoDuration {
   align-items: center;
   display: inline-flex;
+  gap: 0.4rem;
   text-wrap: pretty;
 }
 
-/* キーワード分析セクション */
+.videoStatsIcon {
+  color: #63b3ed;
+  font-size: 1.4rem;
+}
+
+/* Video duration badge */
+.videoDurationBadge {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.videoDurationBadgeLabel {
+  background-color: rgb(74 222 128 / 0.2);
+  border-radius: 4px;
+  color: #68d391;
+  font-size: 1.3rem;
+  font-weight: 600;
+  padding: 0.3rem 0.6rem;
+}
+
+/* ==================== */
+/* Keyword Analysis Section */
+/* ==================== */
 .keywordSection {
   margin-top: 2rem;
 }
@@ -341,6 +660,13 @@
   background-color: #404040;
   border-radius: 0.375rem;
   padding: 1.5rem;
+  transition: transform 0.2s ease;
+}
+
+.keywordColumn:active,
+.keywordColumn:hover {
+  box-shadow: 0 6px 12px rgb(0 0 0 / 0.1);
+  transform: translateY(-4px);
 }
 
 .keywordTitle {
@@ -361,380 +687,75 @@
 
 .keywordItem {
   align-items: center;
-  border-bottom: 1px solid #4a5568;
+  background-color: rgb(42 42 42 / 0.6);
+  border-radius: 0.25rem;
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem 0;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.keywordItem:active,
+.keywordItem:hover {
+  background-color: rgb(66 153 225 / 0.15);
 }
 
 .keywordItem:last-child {
-  border-bottom: none;
+  margin-bottom: 0;
 }
 
 .keywordLabel {
   color: #f7fafc;
   font-size: 1.4rem;
+  font-weight: 500;
   text-wrap: pretty;
 }
 
 .keywordCount {
-  color: #a0aec0;
-  font-size: 1.4rem;
-  font-weight: 600;
+  background-color: rgb(66 153 225 / 0.2);
+  border-radius: 4px;
+  color: #48bb78;
+  font-size: 1.3rem;
+  font-size: 0.8em;
+  font-weight: 700;
+  padding: 0.3rem 0.6rem;
   text-wrap: pretty;
+  white-space: nowrap;
 }
 
-/* 動画長分析セクション */
+/* ==================== */
+/* Video Duration Analysis */
+/* ==================== */
 .durationSection {
   background-color: #404040;
-  border-radius: 0.375rem;
-  margin-top: 2rem;
+  border-radius: 0.75rem;
+  margin-top: 2.5rem;
   padding: 1.5rem;
 }
 
 .durationSummary {
+  align-items: center;
+  background-color: rgb(42 42 42 / 0.6);
+  border-radius: 0.5rem;
   color: #e2e8f0;
+  display: flex;
   font-size: 1.5rem;
+  justify-content: space-between;
   margin-bottom: 0.75rem;
+  padding: 1rem 1.5rem;
   text-wrap: pretty;
 }
 
 .emphasis {
-  color: #f7fafc;
-  font-weight: 700;
-}
-
-/* アクションボタン */
-.actions {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-top: 2rem;
-}
-
-.actionButton {
-  background-color: #4299e1;
-  border-radius: 0.375rem;
-  color: white;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 1.5rem;
-  font-weight: 600;
-  padding: 0.75rem 1.5rem;
-  text-decoration: none;
-  transition: background-color 0.2s;
-}
-
-.actionButton:hover {
-  background-color: #3182ce;
-}
-
-/* 専門家のアドバイスセクション用のスタイル */
-.adviceList {
-  list-style-type: disc;
-  margin-bottom: 1rem;
-  margin-left: 1.5rem;
-  margin-top: 0.5rem;
-}
-
-.adviceListItem {
-  color: #e2e8f0;
-  font-size: 1.5rem;
-  line-height: 1.5;
-  margin-bottom: 0.5rem;
-  text-wrap: pretty;
-}
-
-.adviceContent {
-  margin-bottom: 1.5rem;
-}
-
-.subsectionContent {
-  margin-bottom: 1rem;
-}
-
-/* エンゲージメントと成長の相関分析セクション用のスタイル　*/
-/* 相関分析オーバービュー */
-.correlationOverview {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  margin-bottom: 2rem;
-}
-
-.correlationScoreCard {
-  background-color: #404040;
-  border-radius: 0.375rem;
-  padding: 1.5rem;
-  text-align: center;
-}
-
-.correlationTitle {
-  color: #f7fafc;
-  font-size: 1.6rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  text-wrap: balance;
-}
-
-.correlationScoreWrapper {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.correlationScore {
-  align-items: center;
-  border-radius: 50%;
-  display: flex;
-  font-size: 2.2rem;
-  font-weight: 700;
-  height: 80px;
-  justify-content: center;
-  margin-bottom: 0.75rem;
-  width: 80px;
-}
-
-.strongPositive {
   background-color: rgb(56 161 105 / 0.2);
-  border: 2px solid #38a169;
-  color: #4ade80;
-}
-
-.strongNegative {
-  background-color: rgb(229 62 62 / 0.2);
-  border: 2px solid #e53e3e;
-  color: #f56565;
-}
-
-.weakCorrelation {
-  background-color: rgb(160 174 192 / 0.2);
-  border: 2px solid #a0aec0;
-  color: #cbd5e0;
-}
-
-.correlationLabel {
-  color: #a0aec0;
-  font-size: 1.4rem;
-}
-
-.insightCard {
-  background-color: #404040;
-  border-radius: 0.375rem;
-  padding: 1.5rem;
-}
-
-.insightTitle {
-  color: #f7fafc;
-  font-size: 1.6rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  text-wrap: balance;
-}
-
-.insightText {
-  color: #e2e8f0;
-  font-size: 1.4rem;
-  line-height: 1.5;
-  text-wrap: pretty;
-}
-
-/* エンゲージメント比較カード */
-.engagementComparisonCard {
-  background-color: #404040;
-  border-radius: 0.375rem;
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-}
-
-.comparisonTitle {
-  color: #f7fafc;
-  font-size: 1.6rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  text-wrap: balance;
-}
-
-.comparisonGrid {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-}
-
-.comparisonItem {
-  background-color: #333;
-  border-radius: 0.25rem;
-  padding: 1rem;
-  text-align: center;
-}
-
-.comparisonLabel {
-  color: #a0aec0;
-  font-size: 1.3rem;
-  margin-bottom: 0.5rem;
-  text-wrap: balance;
-}
-
-.comparisonValue {
-  font-size: 1.8rem;
+  border-radius: 4px;
+  color: #68d391;
   font-weight: 700;
+  padding: 0.3rem 0.6rem;
 }
 
-.highValue {
-  color: #4ade80;
-}
-
-.lowValue {
-  color: #a0aec0;
-}
-
-.positiveEffect {
-  color: #4ade80;
-}
-
-.negativeEffect {
-  color: #f56565;
-}
-
-/* トレンドグリッド */
-.trendGrid {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  margin-bottom: 2rem;
-}
-
-.trendCard {
-  background-color: #404040;
-  border-radius: 0.375rem;
-  padding: 1.5rem;
-}
-
-.trendTitle {
-  color: #f7fafc;
-  font-size: 1.6rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  text-wrap: balance;
-}
-
-.trendValue {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
-.trendDescription {
-  color: #e2e8f0;
-  font-size: 1.4rem;
-  text-wrap: pretty;
-}
-
-/* 特徴グリッド */
-.engagementFeaturesGrid {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  margin-bottom: 2rem;
-}
-
-.featuresCard {
-  background-color: #404040;
-  border-radius: 0.375rem;
-  padding: 1.5rem;
-}
-
-.featuresTitle {
-  color: #f7fafc;
-  font-size: 1.6rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  text-wrap: balance;
-}
-
-.featuresList {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.featureItem {
-  align-items: flex-start;
-  display: flex;
-  margin-bottom: 0.75rem;
-}
-
-.featureBullet {
-  background-color: #4299e1;
-  border-radius: 50%;
-  flex-shrink: 0;
-  height: 8px;
-  margin-right: 10px;
-  margin-top: 8px;
-  width: 8px;
-}
-
-.featureText {
-  color: #e2e8f0;
-  font-size: 1.4rem;
-  line-height: 1.5;
-  text-wrap: pretty;
-}
-
-.noDataMessage {
-  color: #a0aec0;
-  font-size: 1.4rem;
-  font-style: italic;
-  text-wrap: pretty;
-}
-
-/* 推奨事項カード */
-.recommendationsCard {
-  background-color: #404040;
-  border-radius: 0.375rem;
-  padding: 1.5rem;
-}
-
-.recommendationsTitle {
-  color: #f7fafc;
-  font-size: 1.6rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  text-wrap: balance;
-}
-
-.recommendationsList {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.recommendationItem {
-  background-color: rgb(66 153 225 / 0.1);
-  border-left: 3px solid #4299e1;
-  border-radius: 0.25rem;
-  color: #e2e8f0;
-  font-size: 1.4rem;
-  line-height: 1.5;
-  margin-bottom: 1rem;
-  padding: 1rem;
-  text-wrap: pretty;
-}
-
-/* レスポンシブ対応 */
-@container (max-width: 600px) {
-  .comparisonGrid,
-  .trendGrid,
-  .engagementFeaturesGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* 動画長の詳細分析セクション用のスタイル - style.module.css に追加 */
-
-/* 動画長の詳細分析 - 共通スタイル */
+/* Duration card common styles */
 .durationCardTitle {
   align-items: center;
   color: #f7fafc;
@@ -746,13 +767,15 @@
 }
 
 .durationIcon,
-.growthIcon {
+.growthIcon,
+.nicheIcon,
+.trophyIcon {
   display: inline-block;
   font-size: 2rem;
   margin-right: 0.75rem;
 }
 
-/* ジャンル別推奨時間カード */
+/* Genre recommendation card */
 .durationRecommendationCard {
   background-color: #404040;
   border-radius: 0.5rem;
@@ -801,6 +824,15 @@
   min-width: 250px;
   padding: 1.25rem;
   text-align: center;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.recommendationBox:active,
+.recommendationBox:hover {
+  box-shadow: 0 6px 12px rgb(0 0 0 / 0.1);
+  transform: translateY(-5px);
 }
 
 .recommendationBoxLabel {
@@ -814,6 +846,13 @@
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.recommendationBoxValue:active,
+.recommendationBoxValue:hover {
+  transform: scale(1.05);
 }
 
 .recommendationBoxSubtext {
@@ -823,7 +862,7 @@
   text-wrap: pretty;
 }
 
-/* 時間帯別分析 */
+/* Duration buckets analysis */
 .durationBucketsContainer {
   background-color: #404040;
   border-radius: 0.5rem;
@@ -843,6 +882,15 @@
   border: 1px solid #4a5568;
   border-radius: 0.375rem;
   padding: 1rem;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.durationBucketCard:active,
+.durationBucketCard:hover {
+  box-shadow: 0 6px 12px rgb(0 0 0 / 0.1);
+  transform: translateY(-5px);
 }
 
 .optimalBucket {
@@ -871,6 +919,13 @@
   font-size: 1.2rem;
   font-weight: 600;
   padding: 0.2rem 0.5rem;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.optimalBadge:active,
+.optimalBadge:hover {
+  transform: scale(1.05);
 }
 
 .bucketStats {
@@ -895,7 +950,7 @@
   font-weight: 600;
 }
 
-/* 洞察ボックス */
+/* Insight box */
 .durationInsightBox {
   background-color: #333;
   border-left: 4px solid #4299e1;
@@ -924,7 +979,7 @@
   color: #48bb78;
 }
 
-/* 成長機会カード */
+/* Growth opportunity card */
 .growthOpportunityCard {
   background-color: #404040;
   border-radius: 0.5rem;
@@ -982,10 +1037,6 @@
   font-weight: 700;
 }
 
-.positiveValue {
-  color: #48bb78;
-}
-
 .growthRecommendation {
   background-color: rgb(56 161 105 / 0.1);
   border-left: 3px solid #38a169;
@@ -995,7 +1046,7 @@
 
 .recommendationText {
   color: #e2e8f0;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   line-height: 1.5;
   margin: 0;
   text-wrap: pretty;
@@ -1005,77 +1056,18 @@
   color: #48bb78;
 }
 
-/* 代表的な動画例 */
+/* Best duration videos card */
 .bestDurationVideosCard {
   background-color: #404040;
   border-radius: 0.5rem;
   padding: 1.5rem;
 }
 
-.bestDurationVideosList {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
+/* ==================== */
+/* Content Type Analysis */
+/* ==================== */
 
-.bestDurationVideoItem {
-  align-items: center;
-  border-bottom: 1px solid #4a5568;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  padding: 1rem 0;
-}
-
-.bestDurationVideoItem:last-child {
-  border-bottom: none;
-}
-
-.videoDuration {
-  background-color: rgb(66 153 225 / 0.2);
-  border-radius: 0.25rem;
-  color: #63b3ed;
-  flex-shrink: 0;
-  font-size: 1.4rem;
-  font-weight: 600;
-  min-width: 3.5rem;
-  padding: 0.3rem 0.6rem;
-  text-align: center;
-}
-
-.bestVideoLink {
-  color: #e2e8f0;
-  flex: 1;
-  font-size: 1.4rem;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.bestVideoLink:hover {
-  color: #4299e1;
-  text-decoration: underline;
-}
-
-.bestVideoViews {
-  color: #a0aec0;
-  font-size: 1.3rem;
-}
-
-/* レスポンシブ調整 */
-@container (max-width: 700px) {
-  .recommendationBoxes,
-  .growthStatsGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .durationBucketsGrid {
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  }
-}
-
-/* コンテンツカテゴリ分析セクション用のスタイル - style.module.css に追加 */
-
-/* コンテンツタイプ概要 */
+/* Content type overview */
 .contentTypeOverview {
   display: grid;
   gap: 1.5rem;
@@ -1109,12 +1101,13 @@
   background-color: rgb(160 174 192 / 0.4);
   border-radius: 0.25rem;
   display: flex;
+  gap: 1rem;
   height: 3.2rem;
   justify-content: space-between;
   min-width: 5%;
-  overflow: hidden;
   padding: 0 1rem;
   position: relative;
+  /* stylelint-disable-next-line plugin/no-low-performance-animation-properties */
   transition: all 0.3s ease;
 }
 
@@ -1126,7 +1119,6 @@
   color: #f7fafc;
   font-size: 1.4rem;
   font-weight: 600;
-  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -1140,7 +1132,7 @@
   padding: 0.2rem 0.5rem;
 }
 
-/* コンテンツ多様性カード */
+/* Content diversity card */
 .contentDistributionCard {
   background-color: #404040;
   border-radius: 0.5rem;
@@ -1185,7 +1177,14 @@
   font-weight: 700;
   height: 70px;
   justify-content: center;
+  position: relative;
+  transition: transform 0.2s ease;
   width: 70px;
+}
+
+.diversityScore:active,
+.diversityScore:hover {
+  transform: scale(1.05);
 }
 
 .highDiversity {
@@ -1234,13 +1233,22 @@
   text-wrap: pretty;
 }
 
-/* コンテンツタイプ詳細比較 */
+/* Content type comparison */
 .contentTypeComparisonCard {
   background-color: #404040;
   border-radius: 0.5rem;
   margin-bottom: 2rem;
   overflow: hidden;
   padding: 1.5rem;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.contentTypeComparisonCard:active,
+.contentTypeComparisonCard:hover {
+  box-shadow: 0 6px 12px rgb(0 0 0 / 0.1);
+  transform: translateY(-5px);
 }
 
 .comparisonCardTitle {
@@ -1309,6 +1317,13 @@
   color: white;
   font-size: 1.2rem;
   padding: 0.2rem 0.5rem;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.topPerformerBadge:active,
+.topPerformerBadge:hover {
+  transform: scale(1.05);
 }
 
 .positivePerformance {
@@ -1319,12 +1334,21 @@
   color: #fc8181;
 }
 
-/* 潜在的なニッチ市場の分析 */
+/* Niche potential card */
 .nichePotentialCard {
   background-color: #404040;
   border-radius: 0.5rem;
   margin-bottom: 2rem;
   padding: 1.5rem;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.nichePotentialCard:active,
+.nichePotentialCard:hover {
+  box-shadow: 0 6px 12px rgb(0 0 0 / 0.1);
+  transform: translateY(-5px);
 }
 
 .nichePotentialTitle {
@@ -1335,11 +1359,6 @@
   font-weight: 600;
   margin-bottom: 1.5rem;
   text-wrap: balance;
-}
-
-.nicheIcon {
-  font-size: 2rem;
-  margin-right: 0.75rem;
 }
 
 .nichePotentialContent {
@@ -1393,7 +1412,7 @@
   text-wrap: pretty;
 }
 
-/* 最も効果的なコンテンツタイプの詳細 */
+/* Best content type details */
 .bestTypeDetailCard {
   background-color: #404040;
   border-radius: 0.5rem;
@@ -1408,11 +1427,6 @@
   font-weight: 600;
   margin-bottom: 1.5rem;
   text-wrap: balance;
-}
-
-.trophyIcon {
-  font-size: 2rem;
-  margin-right: 0.75rem;
 }
 
 .bestTypeGrid {
@@ -1431,6 +1445,9 @@
 .bestTypeStat {
   background-color: #333;
   border-radius: 0.375rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: 1rem;
   text-align: center;
 }
@@ -1449,39 +1466,52 @@
   text-wrap: pretty;
 }
 
+/* Top performing video */
 .bestTypeTopVideo {
   background-color: #333;
-  border-radius: 0.375rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  padding: 1rem;
+  overflow: hidden;
+  padding: 0;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.bestTypeTopVideo:active,
+.bestTypeTopVideo:hover {
+  box-shadow: 0 4px 10px rgb(0 0 0 / 0.2);
+  transform: translateY(-2px);
 }
 
 .topVideoHeader {
-  color: #a0aec0;
-  font-size: 1.3rem;
-  margin-bottom: 0.25rem;
-}
-
-.topVideoLink {
+  background-color: rgb(66 153 225 / 0.1);
   color: #63b3ed;
-  font-size: 1.4rem;
-  text-decoration: none;
-  transition: color 0.2s ease;
+  font-size: 1.3rem;
+  font-weight: 600;
+  padding: 0.75rem 1rem;
 }
 
-.topVideoLink:hover {
-  color: #4299e1;
-  text-decoration: underline;
+.topVideoThumbnail {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
 }
 
 .topVideoViews {
-  color: #e2e8f0;
+  align-items: center;
+  color: #a0aec0;
+  display: flex;
   font-size: 1.3rem;
+  gap: 0.4rem;
+  padding: 0 1rem 1rem;
 }
 
-/* 成功要因 */
+/* Success factors */
 .successFactorsCard {
   background-color: #333;
   border-radius: 0.375rem;
@@ -1528,21 +1558,11 @@
   padding: 0.3rem 0.8rem;
 }
 
-/* レスポンシブ対応 */
-@container (max-width: 700px) {
-  .bestTypeStats {
-    grid-template-columns: 1fr;
-  }
+/* ==================== */
+/* Title Pattern Optimization */
+/* ==================== */
 
-  .contentTypeTableHeader,
-  .contentTypeRow {
-    grid-template-columns: 1.5fr 0.8fr 1fr 1fr 1fr;
-  }
-}
-
-/* タイトルパターン最適化セクション用のスタイル - style.module.css に追加 */
-
-/* タイトル最適化セクション共通スタイル */
+/* Title card common styles */
 .titleCardHeading {
   align-items: center;
   color: #f7fafc;
@@ -1559,7 +1579,7 @@
   margin-right: 0.75rem;
 }
 
-/* タイトルパターン分析カード */
+/* Title patterns card */
 .titlePatternsCard {
   background-color: #404040;
   border-radius: 0.5rem;
@@ -1573,13 +1593,15 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
-.patternMetricsCard {
+.patternMetricsCard,
+.patternInsightsCard {
   background-color: #333;
   border-radius: 0.375rem;
   padding: 1.25rem;
 }
 
-.patternMetricsTitle {
+.patternMetricsTitle,
+.patternInsightsTitle {
   color: #f7fafc;
   font-size: 1.6rem;
   font-weight: 600;
@@ -1611,24 +1633,13 @@
 }
 
 .patternBar {
+  animation: growFromLeft 1.2s ease-out forwards;
   background-color: rgb(66 153 225 / 0.6);
   border-radius: 2px;
   height: 8px;
   min-width: 5%;
-}
-
-.patternInsightsCard {
-  background-color: #333;
-  border-radius: 0.375rem;
-  padding: 1.25rem;
-}
-
-.patternInsightsTitle {
-  color: #f7fafc;
-  font-size: 1.6rem;
-  font-weight: 600;
-  margin-bottom: 1.25rem;
-  text-wrap: balance;
+  transform-origin: left;
+  width: 0 !important;
 }
 
 .patternInsightsList {
@@ -1655,14 +1666,7 @@
   width: 24px;
 }
 
-.insightText {
-  color: #e2e8f0;
-  font-size: 1.4rem;
-  line-height: 1.5;
-  text-wrap: pretty;
-}
-
-/* キーワード効果分析カード */
+/* Keywords effect analysis */
 .keywordsEffectCard {
   background-color: #404040;
   border-radius: 0.5rem;
@@ -1699,43 +1703,35 @@
   padding: 1rem 0;
 }
 
-.keywordBubble {
-  align-items: center;
-  background-color: rgb(66 153 225 / 0.2);
-  border-radius: 1rem;
-  color: #63b3ed;
-  display: inline-flex;
-  font-weight: 600;
-  gap: 0.3rem;
-  padding: 0.4rem 0.8rem;
-  position: relative;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.keywordBubble:hover {
-  box-shadow: 0 0 0 2px rgb(66 153 225 / 0.5);
-  transform: translateY(-2px);
-}
-
-.keywordCount {
-  color: #48bb78;
-  font-size: 0.8em;
-  font-weight: 700;
-}
-
+.keywordBubble,
 .keywordBubbleNegative {
   align-items: center;
-  background-color: rgb(160 174 192 / 0.2);
   border-radius: 1rem;
-  color: #a0aec0;
   display: inline-flex;
   font-weight: 600;
   gap: 0.3rem;
   padding: 0.4rem 0.8rem;
   position: relative;
   transition: transform 0.2s ease;
+}
+
+.keywordBubble {
+  background-color: rgb(66 153 225 / 0.2);
+  color: #63b3ed;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.keywordBubble:active,
+.keywordBubble:hover {
+  box-shadow: 0 0 0 2px rgb(66 153 225 / 0.5);
+  transform: translateY(-2px);
+}
+
+.keywordBubbleNegative {
+  background-color: rgb(160 174 192 / 0.2);
+  color: #a0aec0;
 }
 
 .keywordCountNegative {
@@ -1770,7 +1766,7 @@
   text-wrap: pretty;
 }
 
-/* タイトル提案カード */
+/* Title suggestions card */
 .titleSuggestionsCard {
   background-color: #404040;
   border-radius: 0.5rem;
@@ -1867,7 +1863,7 @@
   text-wrap: pretty;
 }
 
-/* サムネイル推奨事項カード */
+/* Thumbnail recommendations */
 .thumbnailRecommendationsCard {
   background-color: #404040;
   border-radius: 0.5rem;
@@ -1878,14 +1874,24 @@
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .recommendationItem {
   background-color: #333;
-  border-radius: 0.375rem;
+  background-color: rgb(66 153 225 / 0.1);
+  border-left: 3px solid #4299e1;
+  border-radius: 0.25rem;
+  color: #e2e8f0;
   display: flex;
+  font-size: 1.4rem;
   gap: 1rem;
-  padding: 1.25rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  text-wrap: pretty;
 }
 
 .recommendationIcon {
@@ -1893,658 +1899,272 @@
   font-size: 1.8rem;
 }
 
-.recommendationText {
+/* ==================== */
+/* Engagement & Growth Correlation */
+/* ==================== */
+
+/* Correlation overview */
+.correlationOverview {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  margin-bottom: 2rem;
+}
+
+.correlationScoreCard,
+.insightCard {
+  background-color: #404040;
+  border-radius: 0.375rem;
+  padding: 1.5rem;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.correlationScoreCard {
+  text-align: center;
+}
+
+.correlationScoreCard:active,
+.correlationScoreCard:hover,
+.insightCard:active,
+.insightCard:hover {
+  box-shadow: 0 6px 12px rgb(0 0 0 / 0.1);
+  transform: translateY(-5px);
+}
+
+.correlationTitle,
+.insightTitle {
+  color: #f7fafc;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-wrap: balance;
+}
+
+.correlationScoreWrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.correlationScore {
+  align-items: center;
+  border-radius: 50%;
+  display: flex;
+  font-size: 2.2rem;
+  font-weight: 700;
+  height: 80px;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+  width: 80px;
+}
+
+.weakCorrelation {
+  background-color: rgb(160 174 192 / 0.2);
+  border: 2px solid #a0aec0;
+  color: #cbd5e0;
+}
+
+.correlationLabel {
+  color: #a0aec0;
+  font-size: 1.4rem;
+}
+
+/* Engagement comparison card */
+.engagementComparisonCard {
+  background-color: #404040;
+  border-radius: 0.375rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+}
+
+.comparisonTitle {
+  color: #f7fafc;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-wrap: balance;
+}
+
+.comparisonGrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.comparisonItem {
+  background-color: #333;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.comparisonLabel {
+  color: #a0aec0;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  text-wrap: balance;
+}
+
+.comparisonValue {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.lowValue {
+  color: #a0aec0;
+}
+
+/* Trend grid */
+.trendGrid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  margin-bottom: 2rem;
+}
+
+.trendCard {
+  background-color: #404040;
+  border-radius: 0.375rem;
+  padding: 1.5rem;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.trendCard:active,
+.trendCard:hover {
+  box-shadow: 0 6px 12px rgb(0 0 0 / 0.1);
+  transform: translateY(-5px);
+}
+
+.trendTitle {
+  color: #f7fafc;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-wrap: balance;
+}
+
+.trendValue {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.trendDescription {
+  color: #e2e8f0;
+  font-size: 1.4rem;
+  text-wrap: pretty;
+}
+
+/* Features grid */
+.engagementFeaturesGrid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  margin-bottom: 2rem;
+}
+
+.featuresCard {
+  background-color: #404040;
+  border-radius: 0.375rem;
+  padding: 1.5rem;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.featuresCard:active,
+.featuresCard:hover {
+  box-shadow: 0 6px 12px rgb(0 0 0 / 0.1);
+  transform: translateY(-5px);
+}
+
+.featuresTitle {
+  color: #f7fafc;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-wrap: balance;
+}
+
+.featuresList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.featureItem {
+  align-items: flex-start;
+  display: flex;
+  margin-bottom: 0.75rem;
+}
+
+.featureBullet {
+  background-color: #4299e1;
+  border-radius: 50%;
+  flex-shrink: 0;
+  height: 8px;
+  margin-right: 10px;
+  margin-top: 8px;
+  width: 8px;
+}
+
+.featureText {
   color: #e2e8f0;
   font-size: 1.4rem;
   line-height: 1.5;
   text-wrap: pretty;
 }
 
-/* レスポンシブ対応 */
-@container (max-width: 700px) {
-  .recommendationsList {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* CSS改善 - style.module.css に追加または更新 */
-
-/* 基本的なコンテナスタイル強化 */
-.container {
-  container-type: inline-size;
-  margin: 0 auto;
-  max-width: 1200px;
-  padding: 2rem 1rem;
-}
-
-/* セクションコンテナのアップグレード */
-.section {
-  background-color: #333;
-  border-radius: 0.75rem;
-  box-shadow:
-    0 4px 12px rgb(0 0 0 / 0.15),
-    0 1px 3px rgb(0 0 0 / 0.3);
-  color: #e2e8f0;
-  container-type: inline-size;
-  margin-bottom: 3.5rem;
-  padding: 2rem;
-  position: relative;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.section:hover {
-  box-shadow:
-    0 6px 16px rgb(0 0 0 / 0.2),
-    0 2px 4px rgb(0 0 0 / 0.4);
-}
-
-.sectionTitle {
-  border-bottom: 2px solid #4a5568;
-  color: #f7fafc;
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  position: relative;
-  text-wrap: balance;
-}
-
-.sectionTitle::after {
-  background: linear-gradient(90deg, #4299e1 0%, transparent 100%);
-  bottom: -2px;
-  content: "";
-  height: 2px;
-  left: 0;
-  position: absolute;
-  width: 120px;
-}
-
-/* 人気動画セクションの強化 */
-.videoSection {
-  margin-top: 2.5rem;
-}
-
-.videoListContainer {
-  background-color: #404040;
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-}
-
-.videoList {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-/* 改善された動画アイテムスタイル - サムネイル付き */
-.videoItem {
-  align-items: flex-start;
-  background-color: rgb(50 50 50 / 0.6);
-  border-radius: 0.5rem;
-  display: flex;
-  gap: 1rem;
-  overflow: hidden;
-  padding: 0;
-  position: relative;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.videoItem:hover {
-  box-shadow: 0 4px 12px rgb(0 0 0 / 0.2);
-  transform: translateY(-2px);
-}
-
-.videoRank {
-  align-items: center;
-  background-color: rgb(66 153 225 / 0.8);
-  color: white;
-  display: flex;
-  font-size: 1.4rem;
-  font-weight: 700;
-  height: 28px;
-  justify-content: center;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 28px;
-  z-index: 1;
-}
-
-.videoThumbnail {
-  aspect-ratio: 16 / 9;
-  background-color: #2d3748;
-  flex-shrink: 0;
-  height: auto;
-  overflow: hidden;
-  position: relative;
-  width: 180px;
-}
-
-.videoThumbnailImg {
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-  width: 100%;
-}
-
-.videoItem:hover .videoThumbnailImg {
-  transform: scale(1.05);
-}
-
-.videoContent {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  justify-content: space-between;
-  min-width: 0;
-  padding: 1rem 1.25rem 1rem 0.5rem;
-}
-
-.videoTitle {
-  color: #f7fafc;
-  font-size: 1.5rem;
-  font-weight: 600;
-  line-height: 1.4;
-  margin-bottom: 0.75rem;
-  text-wrap: balance;
-}
-
-.videoLink {
-  color: inherit;
-  display: inline-block;
-  position: relative;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.videoLink:hover {
-  color: #63b3ed;
-}
-
-.videoLink::after {
-  color: #63b3ed;
-  content: "↗";
-  display: inline-block;
-  font-size: 0.8em;
-  margin-left: 0.3em;
-  opacity: 0;
-  transform: translateX(-5px);
-  transition:
-    opacity 0.2s ease,
-    transform 0.2s ease;
-}
-
-.videoLink:hover::after {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.videoStats {
+.noDataMessage {
   color: #a0aec0;
-  display: flex;
-  flex-wrap: wrap;
-  font-size: 1.3rem;
-  gap: 1rem;
-}
-
-.videoViews,
-.videoDate,
-.videoEngagement,
-.videoDuration {
-  align-items: center;
-  display: inline-flex;
-  gap: 0.4rem;
+  font-size: 1.4rem;
+  font-style: italic;
   text-wrap: pretty;
 }
 
-.videoStatsIcon {
-  color: #63b3ed;
-  font-size: 1.4rem;
-}
-
-/* キーワード分析セクションの強化 */
-.keywordSection {
-  margin-top: 2.5rem;
-}
-
-.keywordGrid {
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-}
-
-.keywordColumn {
+/* Recommendations card */
+.recommendationsCard {
   background-color: #404040;
-  border-radius: 0.75rem;
+  border-radius: 0.375rem;
   padding: 1.5rem;
-  transition: transform 0.2s ease;
 }
 
-.keywordColumn:hover {
-  transform: translateY(-4px);
-}
-
-.keywordTitle {
-  border-bottom: 1px solid #4a5568;
+.recommendationsTitle {
   color: #f7fafc;
   font-size: 1.6rem;
   font-weight: 600;
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
   text-wrap: balance;
 }
 
-.keywordList {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.keywordItem {
-  align-items: center;
-  background-color: rgb(42 42 42 / 0.6);
-  border-radius: 0.25rem;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.75rem;
-  padding: 0.75rem 1rem;
-  transition: background-color 0.2s ease;
-}
-
-.keywordItem:hover {
-  background-color: rgb(66 153 225 / 0.15);
-}
-
-.keywordItem:last-child {
-  margin-bottom: 0;
-}
-
-.keywordLabel {
-  color: #f7fafc;
-  font-size: 1.4rem;
-  font-weight: 500;
-  text-wrap: pretty;
-}
-
-.keywordCount {
-  background-color: rgb(66 153 225 / 0.2);
-  border-radius: 4px;
-  color: #63b3ed;
-  font-size: 1.3rem;
-  font-weight: 600;
-  padding: 0.3rem 0.6rem;
-  text-wrap: pretty;
-}
-
-/* 動画長分析の強化 */
-.durationSection {
-  background-color: #404040;
-  border-radius: 0.75rem;
-  margin-top: 2.5rem;
-  padding: 1.5rem;
-}
-
-.durationSummary {
-  align-items: center;
-  background-color: rgb(42 42 42 / 0.6);
-  border-radius: 0.5rem;
-  color: #e2e8f0;
-  display: flex;
-  font-size: 1.5rem;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-  padding: 1rem 1.5rem;
-  text-wrap: pretty;
-}
-
-.emphasis {
-  background-color: rgb(56 161 105 / 0.2);
-  border-radius: 4px;
-  color: #68d391;
-  font-weight: 700;
-  padding: 0.3rem 0.6rem;
-}
-
-/* アクションボタンの強化 */
+/* アクションボタン */
 .actions {
   align-items: center;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  margin-top: 3rem;
+  gap: 1rem;
+  margin-top: 2rem;
 }
 
 .actionButton {
-  background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgb(0 0 0 / 0.1);
+  background-color: #4299e1;
+  border-radius: 0.375rem;
   color: white;
   cursor: pointer;
   display: inline-block;
   font-size: 1.5rem;
   font-weight: 600;
-  letter-spacing: 0.02em;
-  padding: 0.9rem 2rem;
-  text-align: center;
+  padding: 0.75rem 1.5rem;
   text-decoration: none;
-  transition:
-    transform 0.2s,
-    box-shadow 0.2s;
+  transition: background-color 0.2s;
 }
 
+.actionButton:active,
 .actionButton:hover {
-  background: linear-gradient(135deg, #3182ce 0%, #2c5282 100%);
-  box-shadow: 0 6px 8px rgb(0 0 0 / 0.15);
-  transform: translateY(-2px);
-}
-
-.actionButton:active {
-  transform: translateY(0);
-}
-
-/* アイコン - 共通ユーティリティ */
-.iconWrapper {
-  align-items: center;
-  display: inline-flex;
-  justify-content: center;
-  margin-right: 0.5rem;
-}
-
-.icon {
-  height: 1.2em;
-  width: 1.2em;
-}
-
-/* レスポンシブ対応 - コンテナクエリの活用（メディアクエリ回避） */
-@container (width < 800px) {
-  .videoThumbnail {
-    width: 140px;
-  }
-}
-
-@container (width < 500px) {
-  .videoItem {
-    flex-direction: column;
-  }
-
-  .videoThumbnail {
-    width: 100%;
-  }
-
-  .videoContent {
-    padding: 1rem;
-    width: 100%;
-  }
-}
-
-/* コンテンツタイプ分析の最高パフォーマンス動画用スタイル - style.module.css に追加 */
-.bestTypeTopVideo {
-  background-color: #333;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  overflow: hidden;
-  padding: 0;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.bestTypeTopVideo:hover {
-  box-shadow: 0 4px 10px rgb(0 0 0 / 0.2);
-  transform: translateY(-2px);
-}
-
-.topVideoHeader {
-  background-color: rgb(66 153 225 / 0.1);
-  color: #63b3ed;
-  font-size: 1.3rem;
-  font-weight: 600;
-  padding: 0.75rem 1rem;
-}
-
-.topVideoThumbnail {
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-}
-
-.topVideoThumbnailImg {
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-  width: 100%;
-}
-
-.bestTypeTopVideo:hover .topVideoThumbnailImg {
-  transform: scale(1.05);
-}
-
-.topVideoLink {
-  color: #f7fafc;
-  font-size: 1.4rem;
-  font-weight: 600;
-  padding: 0 1rem;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.topVideoLink:hover {
-  color: #4299e1;
-  text-decoration: underline;
-}
-
-.topVideoViews {
-  align-items: center;
-  color: #a0aec0;
-  display: flex;
-  font-size: 1.3rem;
-  gap: 0.4rem;
-  padding: 0 1rem 1rem;
-}
-
-/* 動画長バッジ用スタイル - 動画長分析セクションで使用 */
-.videoDurationBadge {
-  background-color: rgb(74 222 128 / 0.2);
-  border-radius: 4px;
-  color: #68d391;
-  display: inline-block;
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  padding: 0.3rem 0.6rem;
-}
-
-/* 動画長分析セクションの代表的な動画リスト */
-.bestDurationVideosList {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-/* アニメーションとハイライト効果 - style.module.css に追加 */
-
-/* セクション見出しのアニメーション */
-.sectionTitle {
-  overflow: hidden;
-  position: relative;
-}
-
-.sectionTitle::before {
-  animation: shimmer 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgb(255 255 255 / 0.05),
-    transparent
-  );
-  content: "";
-  height: 100%;
-  left: -150%;
-  position: absolute;
-  top: 0;
-  transform: skewX(-20deg);
-  width: 150%;
-  z-index: 1;
-}
-
-@keyframes shimmer {
-  0% {
-    left: -150%;
-  }
-
-  100% {
-    left: 150%;
-  }
-}
-
-/* 成長率と相関スコアのグロー効果 */
-.strongPositive,
-.trendPositive,
-.positiveEffect,
-.positiveValue,
-.highValue {
-  position: relative;
-}
-
-.strongPositive::after,
-.trendPositive::after,
-.positiveEffect::after,
-.positiveValue::after,
-.highValue::after {
-  animation: pulse 3s ease-in-out infinite;
-  background: radial-gradient(
-    circle,
-    rgb(56 161 105 / 0.3) 0%,
-    transparent 70%
-  );
-  border-radius: 50%;
-  content: "";
-  height: 100%;
-  left: 0;
-  opacity: 0.6;
-  position: absolute;
-  top: 0;
-  transform: scale(1.5);
-  width: 100%;
-  z-index: -1;
-}
-
-.strongNegative,
-.trendNegative,
-.negativeEffect {
-  position: relative;
-}
-
-.strongNegative::after,
-.trendNegative::after,
-.negativeEffect::after {
-  animation: pulse 3s ease-in-out infinite;
-  background: radial-gradient(circle, rgb(229 62 62 / 0.3) 0%, transparent 70%);
-  border-radius: 50%;
-  content: "";
-  height: 100%;
-  left: 0;
-  opacity: 0.6;
-  position: absolute;
-  top: 0;
-  transform: scale(1.5);
-  width: 100%;
-  z-index: -1;
-}
-
-@keyframes pulse {
-  0% {
-    opacity: 0.4;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: 0.6;
-    transform: scale(1.5);
-  }
-
-  100% {
-    opacity: 0.4;
-    transform: scale(1);
-  }
-}
-
-/* バッジとアクセントのホバーエフェクト */
-.optimalBadge,
-.topPerformerBadge,
-.recommendationBoxValue,
-.diversityScore,
-.keywordBubble {
-  position: relative;
-  transition: transform 0.2s ease;
-}
-
-.optimalBadge:hover,
-.topPerformerBadge:hover,
-.recommendationBoxValue:hover,
-.diversityScore:hover,
-.keywordBubble:hover {
-  transform: scale(1.05);
-}
-
-/* パターンバーのアニメーション */
-.patternBar {
-  animation: growFromLeft 1.2s ease-out forwards;
-  transform-origin: left;
-  width: 0 !important;
-}
-
-@keyframes growFromLeft {
-  0% {
-    opacity: 0.3;
-    width: 0% !important;
-  }
-
-  100% {
-    opacity: 1;
-    width: var(--width, 100%) !important;
-  }
-}
-
-/* データカードのホバーエフェクト */
-.dataColumn,
-.keywordColumn,
-.correlationScoreCard,
-.insightCard,
-.featuresCard,
-.trendCard,
-.durationBucketCard,
-.recommendationBox,
-.contentTypeComparisonCard,
-.nichePotentialCard {
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.dataColumn:hover,
-.keywordColumn:hover,
-.correlationScoreCard:hover,
-.insightCard:hover,
-.featuresCard:hover,
-.trendCard:hover,
-.recommendationBox:hover,
-.contentTypeComparisonCard:hover,
-.nichePotentialCard:hover {
-  box-shadow: 0 6px 12px rgb(0 0 0 / 0.1);
-  transform: translateY(-5px);
+  background-color: #3182ce;
 }

@@ -73,6 +73,7 @@
   transition: background-color 0.2s ease;
 }
 
+.button:active,
 .button:hover {
   background-color: #2b6cb0;
 }

@@ -190,6 +190,7 @@
   transition: background-color 0.2s ease;
 }
 
+.actionButton:active,
 .actionButton:hover {
   background-color: #3182ce;
 }
@@ -213,6 +214,7 @@
   cursor: not-allowed;
 }
 
+.refreshButton:active:not(:disabled),
 .refreshButton:hover:not(:disabled) {
   background-color: #ed8936;
 }

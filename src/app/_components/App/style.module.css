@@ -82,6 +82,7 @@
   width: 100%;
 }
 
+.input:active,
 .input:hover {
   background-color: #505050;
   box-shadow: 0 0 0 1px inset #666;
@@ -219,8 +220,8 @@
   transition: background-color 0.2s;
 }
 
-.button:hover,
-.button:active {
+.button:active,
+.button:hover {
   background-color: #3182ce;
 }
 
