@@ -1,9 +1,11 @@
 "use client";
 import { analyzeAndPay } from "@/app/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import logo from "./_assets/logo.png";
 import styles from "./style.module.css";
 
 // Zodスキーマの定義
@@ -110,7 +112,10 @@ export default function App(): React.JSX.Element {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>YouTube Growth</h1>
+      <div className={styles.titleContainer}>
+        <h1 className={styles.title}>YouTube Growth</h1>
+        <Image alt="YouTube Growth" height={50} src={logo} width={200} />
+      </div>
       <form
         className={styles.form}
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -231,6 +236,9 @@ export default function App(): React.JSX.Element {
           </div>
           <p className={styles.priceInfo}>
             ※ボタンをクリックすると分析後に決済ページに移動します
+          </p>
+          <p className={styles.priceInfo}>
+            ※本サービスはα版のため、今後仕様や価格が変更される可能性があります
           </p>
         </div>
         <div className={styles.buttonGroup}>

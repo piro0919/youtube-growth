@@ -24,11 +24,19 @@
   padding: 1.5rem 1rem;
 }
 
-.title {
-  font-size: 2.2rem;
+.titleContainer {
   margin-bottom: 1.5rem;
+}
+
+.title {
+  color: transparent;
+  height: 0;
+  /* font-size: 2.2rem;
   text-align: center;
-  text-wrap: balance;
+  text-wrap: balance; */
+  opacity: 0;
+  position: absolute;
+  width: 0;
 }
 
 .form {
