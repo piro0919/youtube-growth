@@ -3,7 +3,8 @@ import { type PageProps } from "@/types/page-props";
 import { redirect } from "next/navigation";
 import Success from "./_components/Success";
 
-export const dynamic = "force-dynamic";
+// オンデマンド ISR
+export const dynamicParams = true;
 
 type SuccessSearchParams = {
   session_id?: string;
