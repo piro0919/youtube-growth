@@ -1637,9 +1637,9 @@
   background-color: rgb(66 153 225 / 0.6);
   border-radius: 2px;
   height: 8px;
-  min-width: 5%;
+  max-width: 100%;
+  min-width: 1%;
   transform-origin: left;
-  width: 0 !important;
 }
 
 .patternInsightsList {

@@ -1,12 +1,3 @@
-:root {
-  --patternBar-typicalLength: calc(attr(data-width) * 1%);
-  --patternBar-questionUsage: calc(attr(data-width) * 1%);
-  --patternBar-bracketUsage: calc(attr(data-width) * 1%);
-  --patternBar-colonUsage: calc(attr(data-width) * 1%);
-  --patternBar-numberInBeginning: calc(attr(data-width) * 1%);
-  --patternBar-emojiUsage: calc(attr(data-width) * 1%);
-}
-
 html {
   @media (width < 740px) {
     font-size: 56.25%;
