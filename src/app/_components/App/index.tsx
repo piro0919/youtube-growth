@@ -235,7 +235,7 @@ export default function App(): React.JSX.Element {
             </div>
           </div>
           <p className={styles.priceInfo}>
-            ※ボタンをクリックすると分析後に決済ページに移動します
+            ※ボタンをクリックすると決済ページに移動し、決済完了後、分析を開始します
           </p>
           <p className={styles.priceInfo}>
             ※本サービスはα版のため、今後仕様や価格が変更される可能性があります
