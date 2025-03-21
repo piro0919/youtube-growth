@@ -3,7 +3,6 @@
 import { prisma } from "@/lib/prisma";
 import { stripe } from "@/lib/stripe";
 import { channelId as getYoutubeIdByUrl } from "@gonetone/get-youtube-id-by-url";
-import console from "console";
 import { google, type youtube_v3 } from "googleapis";
 import { redirect } from "next/navigation";
 import OpenAI from "openai";
@@ -147,7 +146,7 @@ type AnalysisOptions = {
 };
 
 // 進行中または失敗した分析のデータ型
-type AnalysisProgressData = {
+export type AnalysisProgressData = {
   channelBasicInfo: ChannelBasicInfo;
   error?: string;
   message?: string;
@@ -501,94 +500,35 @@ export async function handlePaymentSuccess(
     }
 
     // 非同期で分析プロセスを開始
-    processAnalysisAfterPayment(sessionId).catch((error) => {
-      console.error("分析処理に失敗:", error);
-    });
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/background-analysis`, {
+      body: JSON.stringify({ sessionId }),
+      headers: { "Content-Type": "application/json" },
+      method: "POST",
+    })
+      .then(async (res) => res.json())
+      .then((data) => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        // eslint-disable-next-line promise/always-return
+        if (!data.success) {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          console.error("非同期分析処理失敗:", data.error);
+        } else {
+          console.log("✅ 分析処理をバックグラウンドで開始しました");
+        }
+      })
+      .catch((e) => {
+        console.error("fetch通信エラー:", e);
+      });
   } catch (error) {
     console.error("決済完了処理中にエラーが発生しました:", error);
     throw new Error("決済後の処理に失敗しました");
   }
 }
 
-// 支払い後に分析を実行する関数
-async function processAnalysisAfterPayment(sessionId: string): Promise<void> {
-  try {
-    const record = await prisma.analysis.findUnique({
-      where: { id: sessionId },
-    });
-
-    if (!record || !record.isPaid) {
-      throw new Error("有効な決済レコードが見つかりません");
-    }
-
-    const currentData = record.analysisData as unknown as AnalysisProgressData;
-    // 分析ステータスを更新
-    const updatedData: AnalysisProgressData = {
-      ...currentData,
-      status: "ANALYZING",
-    };
-    // 保存されているオプションを取得、またはデフォルト値を使用
-    const options = currentData.options || {
-      modelType: "gpt-4-turbo",
-      videoCount: 25,
-    };
-
-    await prisma.analysis.update({
-      data: {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        analysisData: updatedData as any,
-        // モデルタイプと動画数を直接フィールドにも保存
-        modelType: options.modelType,
-        videoCount: options.videoCount,
-      },
-      where: { id: sessionId },
-    });
-
-    // チャンネル分析を実行（オプションを渡す）
-    const analysisResult = await analyzeChannel(record.channelInput, options);
-
-    // 分析結果をDBに保存
-    await prisma.analysis.update({
-      data: {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        analysisData: analysisResult as any,
-      },
-      where: { id: sessionId },
-    });
-  } catch (error) {
-    console.error("分析実行中にエラーが発生しました:", error);
-
-    const record = await prisma.analysis.findUnique({
-      where: { id: sessionId },
-    });
-
-    if (!record) {
-      throw new Error("分析レコードが見つかりません");
-    }
-
-    const currentData = record.analysisData as unknown as AnalysisProgressData;
-    // エラー状態を保存
-    const errorData: AnalysisProgressData = {
-      ...currentData,
-      error: error instanceof Error ? error.message : String(error),
-      status: "FAILED",
-    };
-
-    await prisma.analysis.update({
-      data: {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        analysisData: errorData as any,
-      },
-      where: { id: sessionId },
-    });
-
-    // 返金処理を実行
-    await refundFailedAnalysis(sessionId);
-  }
-}
-
 // 分析失敗時の返金処理
-async function refundFailedAnalysis(sessionId: string): Promise<void> {
+export async function refundFailedAnalysis(sessionId: string): Promise<void> {
   try {
     const record = await prisma.analysis.findUnique({
       where: { id: sessionId },
@@ -686,7 +626,7 @@ function getOpenAIClient(): OpenAI {
 /**
  * メインの分析処理サーバーアクション
  */
-async function analyzeChannel(
+export async function analyzeChannel(
   channelInput: string,
   options: AnalysisOptions = { modelType: "gpt-4-turbo", videoCount: 25 },
 ): Promise<AnalysisComplete> {
