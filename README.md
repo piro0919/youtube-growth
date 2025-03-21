@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# オモコロアーカイブ
 
-## Getting Started
+## マイグレーションファイル作成
 
-First, run the development server:
+`npm run migrate:create -- --name hoge`
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## マイグレーション
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- `npm run migrate:dev`（Local Docker）
+- `npm run migrate:prod`（Vercel Postgres）
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Prisma Studio 起動
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run studio:dev`（Local Docker）
+- `npm run studio:prod`（Vercel Postgres）
 
-## Learn More
+## Docker Desktop 起動
 
-To learn more about Next.js, take a look at the following resources:
+`open -a Docker`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Docker 起動
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`docker-compose up`
 
-## Deploy on Vercel
+## ローカル開発
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `npm run dev`（Local Docker）
+- `npm run dev:prod`（Vercel Postgres）
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Stripe Webhook 開発環境でテスト
+
+1. [Stripe CLI](https://docs.stripe.com/stripe-cli) インストール
+2. `stripe login`
+3. `stripe listen --forward-to localhost:3000/api/webhooks/stripe`
+4. 一時的な webhook 署名シークレットが表示されるので `.env.local` に `STRIPE_WEBHOOK_SECRET` として設定
+5. `stripe trigger checkout.session.completed --add checkout_session:metadata.sessionId=test_session_123`

@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING") // 直接接続用のURLも追加（Vercel用）
+}
+
+// 分析セッションモデル
+model Analysis {
+  id              String   @id
+  channelInput    String // 分析対象のチャンネル入力（URLまたはID）
+  channelId       String // 実際に分析されたチャンネルID
+  channelTitle    String // チャンネルのタイトル
+  stripeSessionId String? // 関連するStripeセッションID（支払い後に設定）
+  isPaid          Boolean  @default(false) // 支払い完了フラグ
+  paymentAmount   Int? // 支払い金額（存在する場合）
+  analysisData    Json // 分析結果のJSON
+  modelType       String?  @default("gpt-4-turbo") // 使用AIモデル（gpt-4-turbo または gpt-3.5-turbo）
+  videoCount      Int?     @default(25) // 分析動画数（25, 50, 100）
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}

@@ -1,0 +1,314 @@
+.container {
+  container-type: inline-size;
+  margin: 0 auto;
+  max-width: 1000px;
+  padding: 2rem 1rem;
+}
+
+/* プログレス通知セクション */
+.progressNotification {
+  background-color: rgb(237 137 54 / 0.1);
+  border: 1px solid #ed8936;
+  border-radius: 0.5rem;
+  margin-bottom: 3rem;
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+.title {
+  align-items: center;
+  color: #f6ad55;
+  display: flex;
+  font-size: 2.4rem;
+  font-weight: 700;
+  justify-content: center;
+  margin-bottom: 1rem;
+  text-wrap: balance;
+}
+
+.icon {
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 2rem;
+  margin-right: 0.75rem;
+  pointer-events: none;
+  shape-margin: 1rem;
+  vertical-align: middle;
+  width: 2rem;
+}
+
+.subtitle {
+  color: #e2e8f0;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  text-wrap: pretty;
+}
+
+/* ローダーセクション */
+.loaderContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 2rem 0;
+}
+
+.loader {
+  border: 4px solid #4a5568;
+  border-radius: 50%;
+  border-top: 4px solid #f6ad55;
+  height: 5rem;
+  width: 5rem;
+}
+
+.loading {
+  animation: spin 1.5s linear infinite;
+}
+
+.statusIndicator {
+  align-items: center;
+  color: #a0aec0;
+  display: flex;
+  font-size: 1.4rem;
+  margin-top: 1rem;
+}
+
+.statusDot {
+  animation: pulse 1.5s infinite;
+  background-color: #4fd1c5;
+  border-radius: 50%;
+  display: inline-block;
+  height: 0.8rem;
+  margin-right: 0.5rem;
+  width: 0.8rem;
+}
+
+.progressInfo {
+  margin-top: 2rem;
+}
+
+.progressText {
+  color: #e2e8f0;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-wrap: pretty;
+}
+
+.timeElapsed {
+  color: #a0aec0;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+/* 進行中の詳細セクション */
+.progressDetail {
+  background-color: #333;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
+  color: #e2e8f0;
+  container-type: inline-size;
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+}
+
+.detailTitle {
+  border-bottom: 2px solid #4a5568;
+  color: #e2e8f0;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  text-wrap: balance;
+}
+
+.processSteps {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.step {
+  align-items: flex-start;
+  background-color: #404040;
+  border-radius: 0.5rem;
+  display: flex;
+  padding: 1.5rem;
+}
+
+.stepNumber {
+  align-items: center;
+  background-color: #ed8936;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  font-size: 1.6rem;
+  font-weight: 700;
+  height: 3rem;
+  justify-content: center;
+  margin-right: 1.5rem;
+  min-width: 3rem;
+  width: 3rem;
+}
+
+.stepContent {
+  flex: 1;
+}
+
+.stepTitle {
+  color: #f7fafc;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-wrap: balance;
+}
+
+.stepDescription {
+  color: #e2e8f0;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+/* アクションボタン */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.actionButton {
+  background-color: #4299e1;
+  border-radius: 0.375rem;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.actionButton:hover {
+  background-color: #3182ce;
+}
+
+.refreshButton {
+  background-color: #f6ad55;
+  border: none;
+  border-radius: 0.375rem;
+  color: white;
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  /* stylelint-disable-next-line plugin/no-low-performance-animation-properties */
+  transition: all 0.2s ease;
+}
+
+.refreshButton:disabled {
+  background-color: #4a5568;
+  color: #a0aec0;
+  cursor: not-allowed;
+}
+
+.refreshButton:hover:not(:disabled) {
+  background-color: #ed8936;
+}
+
+.retrying {
+  opacity: 0.7;
+  position: relative;
+}
+
+.retrying:after {
+  animation: dots 1.5s infinite;
+  content: "";
+  position: absolute;
+}
+
+@keyframes dots {
+  0%,
+  20% {
+    /* stylelint-disable-next-line plugin/no-low-performance-animation-properties */
+    content: ".";
+  }
+
+  40% {
+    /* stylelint-disable-next-line plugin/no-low-performance-animation-properties */
+    content: "..";
+  }
+
+  60%,
+  100% {
+    /* stylelint-disable-next-line plugin/no-low-performance-animation-properties */
+    content: "...";
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* レスポンシブ対応 */
+@container (max-width: 640px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1.4rem;
+  }
+
+  .progressText {
+    font-size: 1.4rem;
+  }
+
+  .loader {
+    height: 4rem;
+    width: 4rem;
+  }
+
+  .actions {
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .refreshButton,
+  .actionButton {
+    text-align: center;
+    width: 100%;
+  }
+}
+
+@container (max-width: 400px) {
+  .step {
+    flex-direction: column;
+  }
+
+  .stepNumber {
+    margin-bottom: 1rem;
+    margin-right: 0;
+  }
+}
