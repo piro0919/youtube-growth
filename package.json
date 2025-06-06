@@ -2,7 +2,7 @@
   "dependencies": {
     "@gonetone/get-youtube-id-by-url": "2.0.0",
     "@hookform/resolvers": "5.0.1",
-    "@prisma/client": "6.8.2",
+    "@prisma/client": "6.9.0",
     "@stripe/stripe-js": "7.3.1",
     "ai": "4.3.16",
     "googleapis": "148.0.0",
@@ -12,10 +12,10 @@
     "openai": "4.104.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-hook-form": "7.56.4",
+    "react-hook-form": "7.57.0",
     "ress": "5.0.2",
     "stripe": "17.7.0",
-    "zod": "3.25.46"
+    "zod": "3.25.56"
   },
   "devDependencies": {
     "@commitlint/cli": "19.8.0",
