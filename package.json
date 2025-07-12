@@ -4,7 +4,7 @@
     "@hookform/resolvers": "5.1.1",
     "@prisma/client": "6.11.1",
     "@stripe/stripe-js": "7.4.0",
-    "ai": "4.3.16",
+    "ai": "4.3.17",
     "googleapis": "148.0.0",
     "html2canvas": "1.4.1",
     "jspdf": "3.0.1",
@@ -15,7 +15,7 @@
     "react-hook-form": "7.60.0",
     "ress": "5.0.2",
     "stripe": "17.7.0",
-    "zod": "3.25.74"
+    "zod": "3.25.76"
   },
   "devDependencies": {
     "@commitlint/cli": "19.8.0",
