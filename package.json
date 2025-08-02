@@ -1,18 +1,18 @@
 {
   "dependencies": {
     "@gonetone/get-youtube-id-by-url": "2.0.0",
-    "@hookform/resolvers": "5.2.0",
-    "@prisma/client": "6.12.0",
-    "@stripe/stripe-js": "7.6.1",
+    "@hookform/resolvers": "5.2.1",
+    "@prisma/client": "6.13.0",
+    "@stripe/stripe-js": "7.8.0",
     "ai": "4.3.19",
     "googleapis": "148.0.0",
     "html2canvas": "1.4.1",
     "jspdf": "3.0.1",
-    "next": "15.4.4",
+    "next": "15.4.5",
     "openai": "4.104.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-hook-form": "7.61.1",
+    "react-hook-form": "7.62.0",
     "ress": "5.0.2",
     "stripe": "17.7.0",
     "zod": "3.25.76"
