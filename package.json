@@ -14,7 +14,7 @@
     "react-dom": "^19.0.0",
     "react-hook-form": "7.62.0",
     "ress": "5.0.2",
-    "stripe": "17.7.0",
+    "stripe": "18.5.0",
     "zod": "3.25.76"
   },
   "devDependencies": {
