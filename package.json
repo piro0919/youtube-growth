@@ -34,7 +34,7 @@
     "better-typescript-lib": "2.11.0",
     "commitlint-plugin-tense": "1.0.6",
     "depcheck": "1.4.7",
-    "dotenv": "16.4.7",
+    "dotenv": "17.2.3",
     "eslint": "^9",
     "eslint-config-next": "15.2.3",
     "eslint-config-prettier": "10.1.1",
