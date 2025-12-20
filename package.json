@@ -4,7 +4,7 @@
     "@hookform/resolvers": "5.2.2",
     "@prisma/client": "6.18.0",
     "@stripe/stripe-js": "7.9.0",
-    "ai": "4.3.19",
+    "ai": "5.0.116",
     "googleapis": "164.1.0",
     "html2canvas": "1.4.1",
     "jspdf": "3.0.3",
