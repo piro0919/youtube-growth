@@ -50,7 +50,7 @@
     "eslint-plugin-unused-imports": "4.1.4",
     "eslint-plugin-write-good-comments": "0.2.0",
     "knip": "5.46.0",
-    "lefthook": "1.11.3",
+    "lefthook": "2.0.13",
     "prettier": "3.5.3",
     "prisma": "6.5.0",
     "stylelint": "16.16.0",
