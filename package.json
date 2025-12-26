@@ -15,7 +15,7 @@
     "react-hook-form": "7.69.0",
     "ress": "5.0.2",
     "stripe": "17.7.0",
-    "zod": "3.25.76"
+    "zod": "4.2.1"
   },
   "devDependencies": {
     "@commitlint/cli": "19.8.0",
